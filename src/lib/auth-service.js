@@ -29,6 +29,14 @@ class Auth {
   me() {
     return this.auth.get('/auth/me').then(response => response.data);
   }
+
+  profile() {
+    return this.auth.get('/auth/profile').then(response => response.data);
+  }
+
+  addTopic() {
+    return this.auth.get('/auth/addtopic').then(response => response.data);
+  }
 }
 
 const axiosRequestFunctions = new Auth();

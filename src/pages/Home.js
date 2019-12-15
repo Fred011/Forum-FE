@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Private extends Component {
+class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Private Route</h1>
+        <h1>Home Page</h1>
       </div>
     );
   }
 }
 
-export default Private;
+export default Home;
  

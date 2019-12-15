@@ -4,17 +4,61 @@ import { withAuth } from '../lib/AuthProvider';
  
 
 // height: 900px; width: 50px; position: absolute; for the CSS
+// style={{ borderRadius: '5px', padding: '20px', background: '#686de0', height: '50px' }}
 
 class Navbar extends Component {
   render() {
-    const { user, logout, isLoggedin } = this.props;
+    const { user, logout, isLoggedin, profile, addTopic } = this.props;
     return (
-      <div
-        style={{ borderRadius: '5px', padding: '20px', background: '#686de0' }}>
+      <div className='navbar'>
         {isLoggedin ? (
           <div>
-            <p>username: {user.username}</p>
-            <button onClick={logout}>Logout</button>
+            {/* <p>username: {user.username}</p> */}
+
+            <div className='home-btn'>
+              <Link to='/home'>
+                <img src="./home.svg" alt="home-section" />
+              </Link>
+            </div>
+
+            <div className='nav-btn'>
+              <Link to='/profile'>
+                <img src="./profile.svg" alt="profile-section" onClick={profile} />
+                {/* <img src='./public/profile.svg' onClick={profile} /> */}
+                {/* <button onClick={profile}>Profile</button> */}
+              </Link>
+            </div>
+
+            <div className='nav-btn'>
+              <Link to='/favorites'>
+                <img src="./favorites.svg" alt="favorites-section" />
+              </Link>
+            </div>
+
+            <div className='nav-btn'>
+              <Link to='/mytopics'>
+                <img src="./mytopics.svg" alt="mytopics-section" />
+              </Link>
+            </div>
+
+            <div className='nav-btn'>
+              <Link to='/mycomments'>
+                <img src="./mycomments.svg" alt="mycomments-section" />
+              </Link>
+            </div>
+
+            <div className='nav-btn'>
+              <Link to='/addtopic'>
+                <img src="./create.svg" alt="create a topic" onClick={addTopic} />
+                {/* <button onClick={addTopic}>New Topic</button> */}
+              </Link>
+            </div>
+
+            <div className='logout-btn'>
+              <img src="./logout.svg" alt="log out" onClick={logout} />
+              {/* <button onClick={logout}>Logout</button> */}
+            </div>
+
           </div>
         ) : (
           <div>
