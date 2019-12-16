@@ -24,7 +24,7 @@ class ProfileDetails extends Component {
                     <p>description</p>
                 </div>
                 <div className='fav-section'>
-                    <h1>My Topics</h1> <h1> / </h1> <h1>My comments</h1>
+                    <h1><Link to='/profile/mytopics'>My Topics</Link> / <Link to='/profile/mycomments'>My comments</Link></h1>
                     <TopicListProfile />
                 </div>
                 <Link to='/profile/edit'>

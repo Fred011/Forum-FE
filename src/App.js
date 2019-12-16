@@ -18,15 +18,14 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <h1>Basic React Authentication</h1>
-
+        {/* <h1>Basic React Authentication</h1> */}
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
-          <PrivateRoute exact path="/Home" component={Home} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/profile/edit" component={EditProfile} />
           <PrivateRoute exact path="/addtopic" component={NewTopic} />
+          <PrivateRoute exact path="/" component={Home} />
         </Switch>
       </div>
     );

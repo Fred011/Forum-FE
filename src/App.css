@@ -45,7 +45,7 @@
   /* background-color: rgb(173, 33, 33); */
   background-color: #2C2C2C;
   transform: scale(1);
-  transition: all .07s ease-in-out;
+  transition: all 0.09s ease-in-out;
 }
 
 .nav-btn:hover {
@@ -56,8 +56,8 @@
   height: 90px;
   background-color: #3B3B3B;
   /* background-color: #2C2C2C; */
-  transform: scale(1.4);
-  transition: all .09s ease;  
+  transform: scale(1.2);
+  transition: all .19s ease;  
   box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.438);
 
 }
@@ -83,5 +83,5 @@
 }
 
 .profile {
-  margin: 20px;
+  margin-left: 150px;
 }
