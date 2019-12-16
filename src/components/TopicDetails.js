@@ -7,11 +7,6 @@ class TopicDetails extends Component {
 
     state = {
         topic: [],
-        // title: '',
-        // message: '',
-        // creator: '',
-        // upvote: 0,
-        // downvote: 0
     }
 
     componentDidMount() {

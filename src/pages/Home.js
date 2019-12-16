@@ -26,20 +26,23 @@ class Home extends Component {
     const { listOfTopics } = this.state;
     const allTopics = listOfTopics.map((element ,i)=> {
       return (
-        <Link to={`/topics/${element._id}` } id={element._id} key={i}>
-        <TopicCard
-          title={element.title}
-          description={element.message}
-          id={element._id}
-        />
+        <Link to={`/topics/${element._id}` } id={element._id} name={element.creator} upvotes={element.upVote} downvotes={element.downVote} key={i}>
+          <TopicCard
+            title={element.title}
+            description={element.message}
+            id={element._id}
+          />
         </Link>
       );
     });
 
     return (
-      <div>
-        <h1>Home Page</h1>
-        {allTopics}
+      <div className='home'>
+        <h1>Recent</h1>
+        <div className="active"></div>
+        <div>
+          {allTopics}
+        </div>
       </div>
     );
   }

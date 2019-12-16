@@ -5,6 +5,7 @@
   padding: 0;
   font-size: 16px;
   font-family: 'Roboto';
+  color: rgb(1, 0, 19);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -59,7 +60,6 @@
   transform: scale(1);
   transition: all .19s ease;  
   box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.438);
-
 }
 
 .home-btn {
@@ -84,4 +84,70 @@
 
 .profile {
   margin-left: 150px;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home h1 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.7rem;
+}
+
+.active {
+  width: 40px;
+  height:9px;
+  background-color: #FF006C;
+  margin-bottom: 50px;
+}
+
+.topic-card {
+  display: flex;
+  margin-left: 250px;
+  width: 1200px;
+  height: 150px;
+  margin-bottom: 50px;
+  padding-top: 50px;
+  padding-left: 50px;
+  border-radius: 7px;
+  box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.246);
+}
+
+.topic-card h3 {
+  font-size: 1.4rem;
+  margin-top: 30px;
+}
+
+.topic-card p {
+  font-size: 1.1rem;
+  margin-top: 30px;
+}
+
+.topic-card h5 {
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
+}
+
+.right-column {
+  margin-left: 20px;
+}
+
+.photo {
+  height: 100px;
+  width: 100px;
+}
+
+.img-topic{
+  border-radius: 5px;
 }
