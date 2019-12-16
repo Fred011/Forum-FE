@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import EditProfile from './components/EditProfile';
 import Navbar from './components/Navbar';
+import TopicDetails from './components/TopicDetails'
 
 import AnonRoute from './components/AnonRoute';
 import PrivateRoute from './components/PrivateRoute';
@@ -25,6 +26,7 @@ class App extends Component {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/profile/edit" component={EditProfile} />
           <PrivateRoute exact path="/addtopic" component={NewTopic} />
+          <PrivateRoute exact path="/topics/:id" component={TopicDetails} />
           <PrivateRoute exact path="/" component={Home} />
         </Switch>
       </div>

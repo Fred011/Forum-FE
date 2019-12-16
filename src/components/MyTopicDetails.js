@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 export class MyTopicDetails extends Component {
     constructor(props){
         super(props);
-        this.state = {title: '', description: '', tasks: []};
+        this.state = {title: '', description: ''};
       }
 
       getSingleTopic = () => {
-        const { id } = this.props.match.params;
+        const { id } = req.params;
       
         axios.get(`http://localhost:5000/mytopics/${id}`)
           .then( (response) =>{

@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom'
 import EditProfile from './EditProfile'
 
 class ProfileDetails extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            username: ''
-        }
-    }
 
     renderEditProfile = () => {
         return <EditProfile />
@@ -20,7 +14,7 @@ class ProfileDetails extends Component {
             <div>
                 <div className='user-section'>
                     <h1>user picture</h1>
-                    <h1>username</h1>
+                    <h1>username: </h1>
                     <p>description</p>
                 </div>
                 <div className='fav-section'>
