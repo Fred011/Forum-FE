@@ -7,47 +7,32 @@ class TopicDetails extends Component {
 
     state = {
         topic: [],
-        listOfComments: [],
         upvotes: 117,
         downvotes: 22
     }
- 
+
     componentDidMount() {
         const { id } = this.props.match.params
         topicService
-        .getOneTopic(id)
-        .then( (topic) => {
-            this.setState({ 
-                topic: topic,
-                listOfComments: topic.comments
-            })
-            console.log('myprororororpppspspsp', this.state.listOfComments);
-            })
-            .catch( (err) => console.log(err));
-
-            
+            .getUserTopic(id)
+            .then( (topic) => {
+                this.setState({ topic })
+                console.log('myprororororpppspspsp', topic);
+                })
+                .catch( (err) => console.log(err));
     }
 
     render() {
-
-        const { listOfComments} = this.state;
-        const allTheComments = listOfComments.map( element => {
-          return (<div key={element._id}>
-            <h3>comment: {element.message}</h3>
-          </div>)
-        });
-
-        const { title, message, creator, category, comments } = this.state.topic
-        const upvotes = this.state.upvotes
-        const downvotes = this.state.downvotes
-        return (
-            <div className='topic-details-container'>
+        const { topic } = this.state
+        const myTopic = topic.map((element ,i)=> {
+            return (
+                    <div className='topic-details-container'>
                 <div className="left-part">
                     <div className="topic-info">
 
-                        <h1>{title}</h1>
-                        <p>{message}</p>
-                        <h6> upvotes {upvotes}   downvotes {downvotes}</h6>
+                        <h1>{element.title}</h1>
+                        <p>{element.message}</p>
+                        {/* <h6> upvotes {upvotes}   downvotes {downvotes}</h6> */}
 
                     </div>
                     <div className="comment-bar">
@@ -58,7 +43,7 @@ class TopicDetails extends Component {
                     </div>
 
                     <div className="comment-section">
-                        {allTheComments}
+                        comments card is coming
                     </div>
                 </div>
 
@@ -70,6 +55,13 @@ class TopicDetails extends Component {
                         {/* <p>{creator.username}</p> */}
                     <button className="see-profile-btn">SEE PROFILE</button>
                 </div>
+            </div>
+            );
+        });
+
+        return (
+            <div>
+                {myTopic}
             </div>
         )
     }

@@ -41,17 +41,7 @@ export class EditProfile extends Component {
 
         userService.updateUserData(updatedUser)
         this.props.history.push('/profile');
-      
-    //     axios.put(
-    //       `http://localhost:5000/profile/${_id}`,
-    //       { username, description }
-    //     )
-    //     .then( () => {
-    //       this.props.getTheProfile();						//  <---  hmmm
-    //       this.props.history.push('/profile');    
-    //       // after submitting the form, redirect to '/projects'
-    //     })
-    //      .catch( (err) => console.log(err) )
+    
    }
     
     

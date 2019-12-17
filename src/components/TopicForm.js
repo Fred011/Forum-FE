@@ -1,57 +1,86 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import topicService from '../lib/topic-service';
+
 
 export class TopicForm extends Component {
-    // constructor(props) {
-    //     super (props)
-    //     this.state = props
-    // }
 
     state = {
         title: '',
-        description: ''
+        message: '',
+        category: ''
     }
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
+    handleChange = (e) => {
+        const { name, value } = e.target;
         this.setState({ [name]: value })
     }
 
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        console.log('this.stategfgfg', this.state.category);
+        
+        let newForm = this.state
+        console.log('stateeeeeeee', newForm);
+        
+
+        topicService.addTopic(newForm)
+        // this.props.history.push('/mytopics');
+    }
+
+    componentDidMount() {
+        console.log('IN COMPONENT DID MOUNT');
+        
+    }
+
+
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleFormSubmit}>
-                    <label>Title: </label>
-                    <input type="text" 
-                        name="title" 
-                        value={this.state.title} 
-                        onChange={ (e) => this.handleChange(e) }
-                    />
+            <div className='add-topic-container'>
 
-                    <label>Category:</label>
-                    <select name="category">
-                        <option value="">gaming</option>
-                        <option value="">Lifestyle</option>
-                        <option value="">Sport</option>
-                        <option value="">Musique</option>
-                        <option value="">Coding</option>
-                    </select>
-                    
-                    <label>Description:</label>
-                    <textarea 
-                        name="description" 
-                        value={this.state.description} 
-                        onChange={ (e) => this.handleChange(e) }
-                    />
-                    
-                    <input type="submit" value="Submit" />
-                    
-                    <Link to={'/home'}>
-                        <button>>
-                            Cancel
-                        </button>
-                    </Link>
-                </form>
+                <div className="div-add-topic">
+
+                    <form className="add-topic-form" onSubmit={this.handleFormSubmit}>
+
+                        <label>Title: </label>
+                        <input type="text" 
+                            name="title" 
+                            value={this.state.title} 
+                            onChange={ (e) => this.handleChange(e) }
+                        />
+
+                        <label>Category:</label>
+                        <select name="category" 
+                                required
+                                onChange={ (e) => this.handleChange(e) }
+                            >
+                            <option selected disabled hidden value="Default">choose one</option>
+                            <option value="Gaming">gaming</option>
+                            <option value="Lifestyle">Lifestyle</option>
+                            <option value="Sport">Sport</option>
+                            <option value="Musique">Musique</option>
+                            <option value="Coding">Coding</option>
+                        </select>
+                        
+                        <label>Description:</label>
+                        <textarea 
+                            name="message" 
+                            value={this.state.message} 
+                            onChange={ (e) => this.handleChange(e) }
+                        />
+                        
+                        <input type="submit" value="Submit" />
+                        
+                        <Link to={'/home'}>
+                            <button>
+                                Cancel
+                            </button>
+                        </Link>
+
+                    </form>
+
+                </div>
+
             </div>
         )
     }

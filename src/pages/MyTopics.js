@@ -23,7 +23,7 @@ export default class MyTopics extends Component {
         const { listOfTopics } = this.state;
         const allMyTopics = listOfTopics.map((element ,i)=> {
             return (
-                <Link to={`/mytopics/${element.title}` } id={element._id} name={element.creator} upvotes={element.upVote} downvotes={element.downVote} key={i}>
+                <Link to={`/mytopics/${element.id}` } id={element._id} name={element.creator} upvotes={element.upVote} downvotes={element.downVote} key={i}>
                     <TopicCard
                         title={element.title}
                         description={element.message}

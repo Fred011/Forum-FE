@@ -23,7 +23,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log("in home page");
 
     const { listOfTopics } = this.state;
     const allTopics = listOfTopics.map((element ,i)=> {

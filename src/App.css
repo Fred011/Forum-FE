@@ -262,12 +262,12 @@
   align-content: center;
 }
 
-/* .form-profile {
+.form-profile {
   display: flex;
   align-content: center;
-} */
+}
 
-form input {
+/* form input {
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -278,7 +278,7 @@ form input {
   text-align: left;
   font-style: italic;
   width: 200px;
-}
+} */
 
 .edit-profile-form {
   display: flex;
@@ -291,4 +291,16 @@ form input {
   height: 1px;
   background-color: #0076FF;
   margin-bottom: 200px;
+}
+
+
+.add-topic-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.div-add-topic {
+  display: flex;
+  flex-direction: column;
 }
