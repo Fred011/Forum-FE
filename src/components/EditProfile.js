@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withAuth } from '../lib/AuthProvider';
+import userService from '../lib/user-service';
+
 
 export class EditProfile extends Component {
 
@@ -9,8 +11,8 @@ export class EditProfile extends Component {
         description: ''
     }
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
+    handleChange = (e) => {
+        const { name, value } = e.target;
         this.setState({ [name]: value })
     }
 
@@ -20,10 +22,25 @@ export class EditProfile extends Component {
     // 	.catch( (err) => console.log(err));
     // }
 
-    // handleFormSubmit = (event) => {
-    //     event.preventDefault();
-    //     const { username, description } = this.state;
-    //     const { _id } = this.props.theProfile;
+    componentDidMount() {
+        userService.getUserData()
+            .then( (data) => {
+                this.setState({
+                    username: data.username,
+                    description: data.description
+                })
+            })
+            .catch( (err) => console.log(err));
+    }
+
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        let updatedUser = this.state
+        console.log('stateeeeeeee', updatedUser);
+        
+
+        userService.updateUserData(updatedUser)
+        this.props.history.push('/profile');
       
     //     axios.put(
     //       `http://localhost:5000/profile/${_id}`,
@@ -35,32 +52,40 @@ export class EditProfile extends Component {
     //       // after submitting the form, redirect to '/projects'
     //     })
     //      .catch( (err) => console.log(err) )
-    //   }
+   }
+    
+    
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleFormSubmit}>
-                    <label>Username: </label>
-                    <input type="text" 
-                        name="username" 
-                        value={this.state.username} 
-                        onChange={ (e) => this.handleChange(e) }
-                        />
-                    
-                    <label>Description:</label>
-                    <textarea 
-                        name="description" 
-                        value={this.state.description} 
-                        onChange={ (e) => this.handleChange(e) }
-                         />
-                    
-                    <input type="submit" value="Submit" />
+            <div className='edit-form-container'>
 
-                    <button onClick={() => this.deleteProfile()}>
-                        Delete Profile
-                    </button>
-                </form>
+                <div className="form-profile">
+
+                    <form action='/profile/edit' method='POST' className="edit-profile-form" onSubmit={this.handleFormSubmit}>
+                        <label>Username: </label>
+                        <input type="text" 
+                            name="username" 
+                            value={this.state.username} 
+                            onChange={ (e) => this.handleChange(e) }
+                        />
+                        
+                        <label>Description:</label>
+                        <textarea 
+                            name="description" 
+                            value={this.state.description} 
+                            onChange={ (e) => this.handleChange(e) }
+                        />
+                        
+                        <input type="submit" value="Submit" />
+
+                        <button onClick={() => this.deleteProfile()}>
+                            Delete Profile
+                        </button>
+                    </form>
+
+                </div>
+
             </div>
         )
     }

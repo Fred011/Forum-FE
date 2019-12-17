@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { withAuth } from "../lib/AuthProvider";
-import ProfileDetails from "../components/ProfileDetails";
+// import ProfileDetails from "../components/ProfileDetails";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import TopicListProfile from "./../components/TopicListProfile";
 import userService from "../lib/user-service";
-import { element } from "prop-types";
+
 
 class Profile extends Component {
   state = {
@@ -34,7 +34,8 @@ class Profile extends Component {
         .getUserData()
         .then( (data) => {
             this.setState({
-                username: data.username
+                username: data.username,
+                description: data.description
             })
         })
         .catch( (err) => console.log(err));
@@ -66,16 +67,15 @@ class Profile extends Component {
 
         <div className="fav-section">
           <h1>
-            <Link to="/profile/mytopics">My Topics</Link> /{" "}
+            <Link to="/profile/mytopics">My Topics</Link> 
             <Link to="/profile/mycomments">My comments</Link>
           </h1>
           {allMyComments}
-          <TopicListProfile />
           {allMyTopics}
         </div>
 
         <Link to="/profile/edit">
-          <button onClick={this.renderEditProfile}>Edit Profile</button>
+          <button>Edit Profile</button>
         </Link>
       </div>
     );

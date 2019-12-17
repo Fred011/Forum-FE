@@ -10,7 +10,7 @@ function TopicCard(props) {
                 <div className='topic-card'>
                     <div className="left-column">
                         <div className="photo">
-                            <img src="/Optimized-Optimized-photo profil (1).png" style={{height: 'inherit', width: 'inherit'}} className='img-topic' alt="profile-picture"/>
+                            <img src="/Optimized-Optimized-photo profil (1).png" className='img-topic' alt="profile-picture"/>
                         </div>
                         <h4>name: {props.name}</h4>
                     </div>

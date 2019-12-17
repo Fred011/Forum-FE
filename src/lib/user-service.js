@@ -34,6 +34,45 @@ class User {
       .catch( (err) => console.log(err))
   }
 
+  updateUserData(newUser) {
+    return this.user.put('profile/edit', newUser)
+      .then( (res) => {
+        console.log('resssssssss', res.data);
+        
+        // return newUser.datar
+      })
+      .catch( (err) => console.log(err));
+  }
+
+  // FROM PROJECT MANAGEMENT
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    const { title, description } = this.state;
+    const { _id } = this.props.theProject;
+  
+    axios.put(
+      `http://localhost:5000/api/projects/${_id}`,
+      { title, description }
+    )
+    .then( () => {
+      this.props.getTheProject();						//  <---  hmmm
+      this.props.history.push('/projects');    
+      // after submitting the form, redirect to '/projects'
+    })
+     .catch( (err) => console.log(err) )
+  }
+
+  // END OF PROJECT MANAGEMENT EXAMPLE
+
+
+
+
+
+
+
+
+
+
 
 }
 

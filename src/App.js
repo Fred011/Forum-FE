@@ -9,11 +9,15 @@ import Profile from './pages/Profile';
 import EditProfile from './components/EditProfile';
 import Navbar from './components/Navbar';
 import TopicDetails from './components/TopicDetails'
-import Search from './components/Search'
+import Search from './components/Search';
+import MyTopics from './pages/MyTopics';
+import MyComments from './pages/MyComments';
+
 
 import AnonRoute from './components/AnonRoute';
 import PrivateRoute from './components/PrivateRoute';
 import NewTopic from './pages/NewTopic';
+import topicService from './lib/topic-service';
 
 
 class App extends Component {
@@ -23,25 +27,34 @@ class App extends Component {
     search: ''
   }
 
-  // updateSearch = (e) => {
-  //   const query = e.target.value;
+  componentDidMount() {
+    topicService
+      .getAllTopics()
+        .then( (data) => {
+          this.setState({ topicsArr: data });
+        })
+        .catch( (err) => console.log(err));
+  }
 
-  //   const filtered = this.state.foodsArr.filter((food) => {
-  //     return food.name.toLowerCase().includes(query.toLowerCase())
-  //   })
+  updateSearch = (e) => {
+    const query = e.target.value;
 
-  //   this.setState({search: query, filtered})
-  // }
+    const filtered = this.state.topicsArr.filter((topic) => {
+      return <div> topic.title.toLowerCase().includes(query.toLowerCase()) </div>
+    })
+    
+    this.setState({search: query})
+  }
   
-  // searching={this.state.search} 
   render() {
     return (
       <div className="App">
         <Navbar />
 
-        <Search
-          theSearch={this.updateSearch}
-        />
+        {/* <Search
+          searching={this.state.search} 
+          //theSearch={this.updateSearch}
+        /> */}
         {/* <h1>Basic React Authentication</h1> */}
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />
@@ -50,6 +63,8 @@ class App extends Component {
           <PrivateRoute exact path="/profile/edit" component={EditProfile} />
           <PrivateRoute exact path="/addtopic" component={NewTopic} />
           <PrivateRoute exact path="/topics/:id" component={TopicDetails} />
+          <PrivateRoute exact path="/mytopics" component={MyTopics} />
+          <PrivateRoute exact path="/mycomments" component={MyComments} />
           <PrivateRoute exact path="/" component={Home} />
         </Switch>
       </div>

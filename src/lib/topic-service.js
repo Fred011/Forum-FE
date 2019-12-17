@@ -24,6 +24,14 @@ class Topic {
         .catch( (err) => console.log(err));
   }
 
+  getMyTopics = () => {
+    return this.topic.get(process.env.REACT_APP_API_URL + '/mytopics')
+      .then( (response) => {
+        return response.data
+      })
+      .catch( (err) => console.log(err));
+  }
+
 }
 
 const topicService = new Topic();
