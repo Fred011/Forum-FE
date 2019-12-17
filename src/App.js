@@ -9,16 +9,39 @@ import Profile from './pages/Profile';
 import EditProfile from './components/EditProfile';
 import Navbar from './components/Navbar';
 import TopicDetails from './components/TopicDetails'
+import Search from './components/Search'
 
 import AnonRoute from './components/AnonRoute';
 import PrivateRoute from './components/PrivateRoute';
 import NewTopic from './pages/NewTopic';
 
+
 class App extends Component {
+
+  state = {
+    topicsArr: [],
+    search: ''
+  }
+
+  // updateSearch = (e) => {
+  //   const query = e.target.value;
+
+  //   const filtered = this.state.foodsArr.filter((food) => {
+  //     return food.name.toLowerCase().includes(query.toLowerCase())
+  //   })
+
+  //   this.setState({search: query, filtered})
+  // }
+  
+  // searching={this.state.search} 
   render() {
     return (
       <div className="App">
         <Navbar />
+
+        <Search
+          theSearch={this.updateSearch}
+        />
         {/* <h1>Basic React Authentication</h1> */}
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />

@@ -12,10 +12,10 @@ class Navbar extends Component {
     return (
       <div className='navbar'>
         {isLoggedin ? (
-          <div>
+          <div className='navbar-container'>
             {/* <p>username: {user.username}</p> */}
 
-            <div className='home-btn'>
+            <div className='nav-btn'>
               <Link to='/'>
                 <img src="/home.svg" alt="home-section" />
               </Link>
@@ -54,9 +54,11 @@ class Navbar extends Component {
               </Link>
             </div>
 
-            <div className='logout-btn'>
-              <img src="/logout.svg" alt="log out" onClick={logout} />
-              {/* <button onClick={logout}>Logout</button> */}
+            <div className="logout-nav">
+              <div className='nav-btn'>
+                <img src="/logout.svg" alt="log out" onClick={logout} />
+                {/* <button onClick={logout}>Logout</button> */}
+              </div>
             </div>
 
           </div>
