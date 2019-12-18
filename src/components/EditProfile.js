@@ -40,7 +40,9 @@ export class EditProfile extends Component {
         
 
         userService.updateUserData(updatedUser)
-        this.props.history.push('/profile');
+            .then(() => {
+                this.props.history.push('/profile');
+            })
     
    }
     
@@ -52,7 +54,7 @@ export class EditProfile extends Component {
 
                 <div className="form-profile">
 
-                    <form action='/profile/edit' method='POST' className="edit-profile-form" onSubmit={this.handleFormSubmit}>
+                    <form className="edit-profile-form" onSubmit={this.handleFormSubmit}>
                         <label>Username: </label>
                         <input type="text" 
                             name="username" 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import topicService from '../lib/topic-service';
+import { withRouter } from 'react-router-dom'
 
 
 export class TopicForm extends Component {
@@ -94,4 +95,4 @@ export class TopicForm extends Component {
     }
 }
 
-export default TopicForm
+export default withRouter(TopicForm)

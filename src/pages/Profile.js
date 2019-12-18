@@ -19,31 +19,41 @@ class Profile extends Component {
   };
 
   componentDidMount() {
-    userService
-      .getMyComments()
-      .then(data => {
-        this.setState({ commentsList: data });
-      })
-      .catch(err => console.log(err));
+    console.log('IN COMPONENT DID MOUNT');
+    
+    // userService
+    //   .getMyComments()
+    //   .then(data => {
+    //     this.setState({ commentsList: data });
+    //   })
+    //   .catch(err => console.log(err));
+
+    // userService
+    //   .getMyTopics()
+    //   .then( (data) => {
+    //       this.setState({ topicsList: data })
+    //   })
+    //   .catch( (err) => console.log(err));
+
+    this.getUserData()
+  }
+
+
+  getUserData = () => {
 
     userService
-      .getMyTopics()
-      .then( (data) => {
-          this.setState({ topicsList: data })
-      })
-      .catch( (err) => console.log(err));
-
-      userService
-        .getUserData()
-        .then( (data) => {
-            this.setState({
-              username: data.username,
-              description: data.description
-              
-            })
-            console.log('USERDATAAAAAA', data.username);
+    .getUserData()
+    .then( (data) => {
+      const { username, description, topics, comments} = data;
+      
+        this.setState({
+          username,
+          description,
+          topicsList: topics,
+          commentsList: comments,
         })
-        .catch( (err) => console.log(err));
+    })
+    .catch( (err) => console.log(err));
   }
 
   toggleSection = () => {
@@ -84,7 +94,7 @@ class Profile extends Component {
           <h2>{this.state.username}</h2>
           <p>{this.state.description}</p>
 
-          <Link to="/profile/edit">
+          <Link to="/profile-edit">
             <button className='edit-btn'>Edit</button>
           </Link>
 

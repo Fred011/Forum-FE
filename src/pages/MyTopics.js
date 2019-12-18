@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import topicService from "../lib/topic-service";
 import { Link } from 'react-router-dom'
 import TopicCard from '../components/TopicCardUser';
-import UserTopicDetails from '../components/UserTopicDetails'
+import TopicDetails from '../components/TopicDetails'
 import { withAuth } from '../lib/AuthProvider';
 
 
@@ -27,7 +27,7 @@ class MyTopics extends Component {
         const { listOfTopics } = this.state;
         const allMyTopics = listOfTopics.map((element ,i)=> {
             return (
-                <Link to={`/mytopics/${element._id}`} key={i} component={UserTopicDetails}>
+                <Link to={`/mytopics/${element._id}`} key={i} component={TopicDetails}>
                     <TopicCard
                         title={element.title}
                         description={element.message}

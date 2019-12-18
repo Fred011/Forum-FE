@@ -21,7 +21,7 @@ class ProfileDetails extends Component {
                     <h1><Link to='/profile/mytopics'>My Topics</Link> / <Link to='/profile/mycomments'>My comments</Link></h1>
                     <TopicListProfile />
                 </div>
-                <Link to='/profile/edit'>
+                <Link to='/profile-edit'>
                     <button onClick={this.renderEditProfile}>Edit Profile</button>
                 </Link>
             </div>

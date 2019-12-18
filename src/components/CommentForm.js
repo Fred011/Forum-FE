@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import commentService from '../lib/comment-service'
 import topicService from '../lib/topic-service'
 import { withAuth } from '../lib/AuthProvider'
+import { withRouter } from 'react-router-dom'
 
 class CommentForm extends Component {
     constructor(props) {
@@ -24,10 +25,11 @@ class CommentForm extends Component {
         commentService.addComment(this.props.topicID, newComment)
         .then( () =>{
             console.log('this.props', this.props);
-            this.props.history.push(`/topic/${this.props.topicID}`)
+            this.props.refreshTopic()
+            // this.props.history.push(`/topic/${this.props.topicID}`)
             // window.location = `/topic/${this.props.topicID}`
+            this.setState({ message: ''})
         } )
-        this.setState({ message: newComment.message})
     }
 
     render() {
@@ -55,4 +57,4 @@ class CommentForm extends Component {
     }
 }
 
-export default withAuth(CommentForm);
+export default withRouter(CommentForm);

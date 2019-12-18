@@ -19,7 +19,7 @@ class Comment {
   addComment = (id, comment) => {
     console.log('hello from service ', id,comment);
     
-    return this.comment.post(process.env.REACT_APP_API_URL + `/topic/${id}/addcomment`, comment)
+    return this.comment.post(process.env.REACT_APP_API_URL + `/topic/${id}/comment`, comment)
       .then( (response) => {
         return response.data
       })
