@@ -52,10 +52,10 @@ class App extends Component {
       <div className="App">
         <Navbar />
 
-        <Search
+        {/* <Search
           searching={this.state.search} 
           //theSearch={this.updateSearch}
-        />
+        /> */}
         {/* <h1>Basic React Authentication</h1> */}
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />
@@ -63,7 +63,7 @@ class App extends Component {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/profile/edit" component={EditProfile} />
           <PrivateRoute exact path="/addtopic" component={NewTopic} />
-          <PrivateRoute exact path="/topics/:id" component={TopicDetails} />
+          <PrivateRoute exact path="/topic/:id" component={TopicDetails} />
           <PrivateRoute exact path="/mytopics" component={MyTopics} />
           <PrivateRoute exact path="/mytopics/:id" component={UserTopicDetails} />
           <PrivateRoute exact path="/mycomments" component={MyComments} />

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import topicService from "../lib/topic-service";
 import { Link } from 'react-router-dom'
-import TopicCard from '../components/TopicCard';
+import TopicCardUser from '../components/TopicCardUser';
+import UserTopicDetails from '../components/UserTopicDetails'
 
 
 export default class MyTopics extends Component {
@@ -23,16 +24,17 @@ export default class MyTopics extends Component {
         const { listOfTopics } = this.state;
         const allMyTopics = listOfTopics.map((element ,i)=> {
             return (
-                <Link to={`/mytopics/${element.id}` } id={element._id} name={element.creator} upvotes={element.upVote} downvotes={element.downVote} key={i}>
-                    <TopicCard
+                <Link to={`/mytopics/${element._id}`} key={i} component={UserTopicDetails}>
+                    <TopicCardUser
                         title={element.title}
                         description={element.message}
+                        comments={element.comments}
                         id={element._id}
-                    />
+                    /> 
                 </Link>
             );
         });
-
+ 
         return (
             <div>
                 <div className="my-topics"></div>

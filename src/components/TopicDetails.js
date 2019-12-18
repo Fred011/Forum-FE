@@ -1,78 +1,112 @@
-import React, { Component } from 'react';
-import topicService from '../lib/topic-service';
-
-
+import React, { Component } from "react";
+import topicService from "../lib/topic-service";
+import commentService from "../lib/comment-service";
+import CommentForm from "./CommentForm";
+import { withAuth } from "../lib/AuthProvider";
 
 class TopicDetails extends Component {
+  state = {
+    topic: [],
+    listOfComments: [],
+    comment: [],
+    upvotes: 117,
+    downvotes: 22
+  };
 
-    state = {
-        topic: [],
-        listOfComments: [],
-        upvotes: 117,
-        downvotes: 22
-    }
- 
-    componentDidMount() {
-        const { id } = this.props.match.params
-        topicService
-        .getOneTopic(id)
-        .then( (topic) => {
-            this.setState({ 
-                topic: topic,
-                listOfComments: topic.comments
-            })
-            console.log('myprororororpppspspsp', this.state.listOfComments);
-            })
-            .catch( (err) => console.log(err));
-
-            
-    }
-
-    render() {
-
-        const { listOfComments} = this.state;
-        const allTheComments = listOfComments.map( element => {
-          return (<div key={element._id}>
-            <h3>comment: {element.message}</h3>
-          </div>)
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    topicService
+      .getOneTopic(id)
+      .then(topic => {
+        this.setState({
+          topic: topic,
+          listOfComments: topic.comments
         });
+        console.log("TOPIC", this.state.topic);
+        console.log("ListOfComments", this.state.listOfComments);
+      })
+      .catch(err => console.log(err));
+  }
 
-        const { title, message, creator, category, comments } = this.state.topic
-        const upvotes = this.state.upvotes
-        const downvotes = this.state.downvotes
-        return (
-            <div className='topic-details-container'>
-                <div className="left-part">
-                    <div className="topic-info">
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
 
-                        <h1>{title}</h1>
-                        <p>{message}</p>
-                        <h6> upvotes {upvotes}   downvotes {downvotes}</h6>
+  handleDeleteTopic = (e) => {
+      const {id} = this.props.match.params
 
-                    </div>
-                    <div className="comment-bar">
-                        <form className='comment-form'> 
-                            <input type="text"/>
-                            <div className="submit-btn">SUBMIT</div>
-                        </form>
-                    </div>
+      console.log('id', id);
+      
+      e.preventDefault()
+      topicService
+      .deleteOneTopic(id)
+      .then(()=> {
+        this.props.history.push('/');
+      })
+      
+  }
 
-                    <div className="comment-section">
-                        {allTheComments}
-                    </div>
-                </div>
+  render() {
 
-                <div className="separation"></div>
+    const { listOfComments } = this.state;
+    console.log('STATE', this.state);
+    
+    const allTheComments = listOfComments.map(element => {
+      return (
+        <div key={element._id}>
+          <h3>comment: {element.message}</h3>
+        </div>
+      );
+    });
 
-                <div className="topic-user">
-                    picture
-                    username
-                        {/* <p>{creator.username}</p> */}
-                    <button className="see-profile-btn">SEE PROFILE</button>
-                </div>
+    const { title, message, creator, category, comments } = this.state.topic;
+    const upvotes = this.state.upvotes;
+    const downvotes = this.state.downvotes;
+
+
+    const { username } = this.props.user;
+
+    return (
+      <div className="topic-details-container">
+        {creator ? (
+          <div>
+            {username === creator.username ? (
+              <div>
+                <button onClick={ this.handleDeleteTopic}>delete</button>
+              </div>
+            ) : null}
+            <div className="left-part">
+              <div className="topic-info">
+                <h1>{title}</h1>
+                <p>{message}</p>
+                <h6>
+                  {" "}
+                  upvotes {upvotes} downvotes {downvotes}
+                </h6>
+              </div>
+
+              <CommentForm {...this.props} topicID={this.state.topic._id} />
+
+              <div className="comment-section">
+                <h1>COMMENTS SHOULD BE THERE</h1>
+                {allTheComments}
+              </div>
             </div>
-        )
-    }
+
+            <div className="separation"></div>
+
+            <div className="topic-user">
+              picture username
+              <button className="see-profile-btn">SEE PROFILE</button>
+            </div>
+          </div>
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+    );
+  }
 }
 
-export default TopicDetails
+export default withAuth(TopicDetails);

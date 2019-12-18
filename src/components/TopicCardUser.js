@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TopicDetails from './TopicDetails'
-import { withAuth } from '../lib/AuthProvider';
+import UserTopicDetails from './UserTopicDetails';
+import MyTopics from '../pages/MyTopics';
 
-function TopicCard(props) {
+
+function TopicCardUser(props) {
     console.log('inside topic card', props);
     
     return (
@@ -13,7 +14,7 @@ function TopicCard(props) {
                         <div className="photo">
                             <img src="/Photo Linkedin a envoyer copie.jpg" className='img-topic' alt="profile-picture"/>
                         </div>
-                        <h4>{props.creator.username} </h4>
+                        <h4>name: {props.creator}</h4>
                     </div>
                     <div className="right-column">
                         <h3>{props.title}</h3>
@@ -26,4 +27,4 @@ function TopicCard(props) {
     )
 }
 
-export default withAuth(TopicCard)
+export default TopicCardUser

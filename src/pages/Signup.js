@@ -20,30 +20,31 @@ class Signup extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div>
-        <h1>Sign Up</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          />
+      <div className='login-container'>
+        <div className="all-login">
+          <h1>Sign Up</h1>
+          <form className='log' onSubmit={this.handleFormSubmit}>
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={this.handleChange}
+            />
 
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+            />
 
-          <input type="submit" value="Signup" />
-        </form>
+            <input className='signup-btn' type="submit" value="Signup" />
+          </form>
 
-        <p>Already have account?</p>
-        <Link to={'/login'}> Login</Link>
+          <p>Already have account?<Link to={'/login'}> <span className='span-account2'>Login</span></Link></p>
+        </div>
       </div>
     );
   }

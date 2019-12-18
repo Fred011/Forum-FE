@@ -24,8 +24,13 @@ export class TopicForm extends Component {
         console.log('stateeeeeeee', newForm);
         
 
-        topicService.addTopic(newForm)
-        // this.props.history.push('/mytopics');
+        topicService
+        .addTopic(newForm)
+        .then(()=> {
+            console.log('this.props', this.props);
+            window.location = '/'
+          })
+          
     }
 
     componentDidMount() {
@@ -55,11 +60,14 @@ export class TopicForm extends Component {
                                 onChange={ (e) => this.handleChange(e) }
                             >
                             <option selected disabled hidden value="Default">choose one</option>
-                            <option value="Gaming">gaming</option>
+                            <option value="Gaming">Gaming</option>
                             <option value="Lifestyle">Lifestyle</option>
                             <option value="Sport">Sport</option>
-                            <option value="Musique">Musique</option>
+                            <option value="Food">Food</option>
                             <option value="Coding">Coding</option>
+                            <option value="UX-UI">Coding</option>
+                            <option value="Fun">Fun</option>
+                            <option value="Random">Random</option>
                         </select>
                         
                         <label>Description:</label>

@@ -5,6 +5,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import TopicListProfile from "./../components/TopicListProfile";
 import userService from "../lib/user-service";
+import TopicCardProfile from "../components/TopicCardProfile";
+import CommentCardProfile from "../components/CommentCardProfile";
 
 
 class Profile extends Component {
@@ -12,7 +14,8 @@ class Profile extends Component {
     username: "",
     description: "",
     topicsList: [],
-    commentsList: []
+    commentsList: [],
+    showCard: false
   };
 
   componentDidMount() {
@@ -34,49 +37,79 @@ class Profile extends Component {
         .getUserData()
         .then( (data) => {
             this.setState({
-                username: data.username,
-                description: data.description
+              username: data.username,
+              description: data.description
+              
             })
+            console.log('USERDATAAAAAA', data.username);
         })
         .catch( (err) => console.log(err));
+  }
+
+  toggleSection = () => {
+    let showCommentCard = this.state.showCard
+    this.setState({showCard: !showCommentCard})  
   }
 
   render() {
 
     const {commentsList} = this.state
     const allMyComments = commentsList.map( element => {
-        return <div key={element._id}> 
-            <h3>title: {element.title}</h3>
-            <p>message: {element.message}</p>
-        </div>
+
+      return <CommentCardProfile key={element._id} user={element.user} message={element.message} />
+        // return <div key={element._id}> 
+        //     <h3>title: {element.title}</h3>
+        //     <p>message: {element.message}</p>
+        // </div>
     })
 
     const { topicsList } = this.state;
     const allMyTopics = topicsList.map( element => {
-        return <div key={element._id}>
-                    <h3>{element.title}</h3>
-                    <p>{element.message}</p>
-                </div>
+
+      return <TopicCardProfile key={element._id} title={element.title} message={element.message} />
+        // return <div key={element._id}>
+        //             <h3>{element.title}</h3>
+        //             <p>{element.message}</p>
+        //         </div>
     })
 
     return (
-      <div className="profile">
-        <h1>Profile page</h1>
-        {this.state.username}
+      <div className="profile-container">
 
+        <div className="profile-data">
+
+
+          <img src="/Photo Linkedin a envoyer copie.jpg" className='profile-picture' alt="profile picture"/>
+
+          <h2>{this.state.username}</h2>
+          <p>{this.state.description}</p>
+
+          <Link to="/profile/edit">
+            <button className='edit-btn'>Edit</button>
+          </Link>
+
+        </div>
+
+        <div className="separation-profile"></div>
 
         <div className="fav-section">
           <h1>
-            <Link to="/profile/mytopics">My Topics</Link> 
+            {/* <Link to="/profile/mytopics">My Topics</Link>  */}
+            <h2 onClick={() => this.toggleSection()}>TOPICS</h2>
             <Link to="/profile/mycomments">My comments</Link>
           </h1>
-          {allMyComments}
-          {allMyTopics}
+          {this.state.showCard ? (
+              <div>
+                {allMyTopics}
+              </div>
+            ) : (
+              <div>
+                {allMyComments}
+              </div>
+            )
+          }
         </div>
 
-        <Link to="/profile/edit">
-          <button>Edit Profile</button>
-        </Link>
       </div>
     );
   }

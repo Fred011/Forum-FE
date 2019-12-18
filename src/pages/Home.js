@@ -10,27 +10,30 @@ import { Link } from 'react-router-dom';
 
 class Home extends Component {
   state = {
-    listOfTopics: []
+    listOfTopics: [],
+    creator: []
   };
 
   componentDidMount() {
     topicService
       .getAllTopics()
       .then(data => {
-        this.setState({ listOfTopics: data });
+        this.setState({ listOfTopics: data, creator: data.creator});
       })
       .catch(err => console.log(err));
   }
 
   render() {
-
+//            creator={element.creator}
     const { listOfTopics } = this.state;
     const allTopics = listOfTopics.map((element ,i)=> {
       return (
-        <Link to={`/topics/${element._id}` } id={element._id} name={element.creator} upvotes={element.upVote} downvotes={element.downVote} key={i}>
+        <Link to={`/topic/${element._id}` } id={element._id}  key={i} creator={element.creator}>
           <TopicCard
             title={element.title}
+            creator={element.creator}
             description={element.message}
+            date={element.createdAt} // not working
             id={element._id}
           />
         </Link>

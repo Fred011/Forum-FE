@@ -5,23 +5,55 @@
   padding: 0;
   font-size: 16px;
   font-family: 'Roboto';
-  color: rgb(1, 0, 19);
+  /* color: rgb(1, 0, 19); */
   text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App {
+  width: 100%;
+  height: 940px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #2C2C2C;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.all-login {
+  margin-top: 300px;
+  text-align: center;
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+}
+
+.log input {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  border: solid 0;
+  margin-bottom: 30px;
+  box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+}
+
+.span-account {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #FF006C;
+}
+
+.span-account2 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #0076FF;
 }
 
 .App {
@@ -99,8 +131,34 @@
   margin-top: 150px;
 }
 
-.profile {
-  margin-left: 150px;
+.profile-container {
+  display: flex;
+  align-content: space-around;
+  margin-left: 190px;
+}
+
+.profile-data h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.profile-data p {
+  font-size: 1.2rem;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.profile-data {
+  text-align: center;
+  margin-top: 200px;
+  width: 450px;
+}
+
+.fav-section {
+  margin-top: 200px;
+  /* margin-left: 100px; */
 }
 
 .home {
@@ -132,21 +190,47 @@
   padding-left: 50px;
   border-radius: 7px;
   box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.246);
+  text-decoration: none;
+  color: rgb(0, 0, 20);
 }
 
+.topic-card-profile {
+  display: flex;
+  width: 600px;
+  height: 120px;
+  margin-bottom: 40px;
+  padding-top: 50px;
+  padding-left: 30px;
+  border-radius: 7px;
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.161);
+}
+
+.fav-section h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+
 .topic-card:hover {
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
+  border: 1px solid rgb(241, 72, 129);
 }
 
 .topic-card h3 {
   font-size: 1.4rem;
   font-weight: 500;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .topic-card p {
   font-size: 1.1rem;
   margin-top: 30px;
+  display: block;
+  width: 950px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .topic-card h5 {
@@ -227,6 +311,31 @@
   padding: 10px 20px;
   border-radius: 7px;
   border: 0 solid;
+  text-transform: uppercase;
+}
+
+.edit-btn {
+  background-color: #0076FF ;
+  color: white;
+  box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.301);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 50px;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 0 solid;
+  text-transform: uppercase;
+}
+
+.signup-btn {
+  background-color: #FF006C ;
+  color: white;
+  box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.301);
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 0 solid;
 }
 
 .separation {
@@ -235,6 +344,15 @@
   background-color: rgb(218, 218, 218);
   margin-left: 130px;
   margin-right: 130px;
+}
+
+.separation-profile {
+  width: 2px;
+  height: 450px;
+  background-color: rgb(218, 218, 218);
+  margin-left: 130px;
+  margin-right: 130px;
+  margin-top: 250px;
 }
 
 .topic-user {
@@ -303,4 +421,12 @@
 .div-add-topic {
   display: flex;
   flex-direction: column;
+}
+
+.profile-picture {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.301);
 }

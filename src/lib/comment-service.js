@@ -16,6 +16,16 @@ class Comment {
       .catch( (err) => console.log(err));
   }
 
+  addComment = (id, comment) => {
+    console.log('hello from service ', id,comment);
+    
+    return this.comment.post(process.env.REACT_APP_API_URL + `/topic/${id}/addcomment`, comment)
+      .then( (response) => {
+        return response.data
+      })
+      .catch( (err) => console.log(err));
+  }
+
 }
 
 const commentService = new Comment();

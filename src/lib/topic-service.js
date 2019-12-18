@@ -33,16 +33,16 @@ class Topic {
   }
 
   getUserTopic = (id) => {
-    return this.topic.get(process.env.REACT_APP_API_URL + `/mytopics/${id}`)
+    return this.topic.get(process.env.REACT_APP_API_URL + `/mytopics/${id}`, id)
       .then( (response) => {
+        console.log('RESPONSE', response.data);
+        
         return response.data
       })
       .catch( (err) => console.log(err));
   }
 
   addTopic = (topic) => {
-    console.log('hi from api');
-    
     return this.topic.post(process.env.REACT_APP_API_URL + `/addtopic`, topic)
       .then( (response) => {
         console.log('RESPONSE.DATAAAAAAA', response.data);
@@ -50,6 +50,12 @@ class Topic {
         return response.data
       })
       .catch( (err) => console.log(err));
+  }
+
+  deleteOneTopic = (id) => {
+    console.log('HELLO FROM SERVICE');
+    
+    return this.topic.delete(process.env.REACT_APP_API_URL + `/mytopics/${id}/delete`)
   }
 }
 

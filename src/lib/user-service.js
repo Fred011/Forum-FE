@@ -39,7 +39,7 @@ class User {
       .then( (res) => {
         console.log('resssssssss', res.data);
         
-        // return newUser.datar
+        return res.data
       })
       .catch( (err) => console.log(err));
   }

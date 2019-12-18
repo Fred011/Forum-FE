@@ -13,11 +13,14 @@ class TopicDetails extends Component {
 
     componentDidMount() {
         const { id } = this.props.match.params
+        console.log('this.props.match.params', this.props.match.params);
+        
+
         topicService
             .getUserTopic(id)
             .then( (topic) => {
-                this.setState({ topic })
-                console.log('myprororororpppspspsp', topic);
+                // this.setState({ topic: topic })
+                console.log('MY TOPIC', topic);
                 })
                 .catch( (err) => console.log(err));
     }
@@ -53,7 +56,7 @@ class TopicDetails extends Component {
                     picture
                     username
                         {/* <p>{creator.username}</p> */}
-                    <button className="see-profile-btn">SEE PROFILE</button>
+                    <button className="see-profile-btn">delete</button>
                 </div>
             </div>
             );
