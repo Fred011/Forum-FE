@@ -64,7 +64,7 @@ class App extends Component {
           <PrivateRoute exact path="/profile/edit" component={EditProfile} />
           <PrivateRoute exact path="/addtopic" component={NewTopic} />
           <PrivateRoute exact path="/topic/:id" component={TopicDetails} />
-          <PrivateRoute exact path="/mytopics" component={MyTopics} />
+          <PrivateRoute exact path="/mytopics" component={UserTopicDetails} />
           <PrivateRoute exact path="/mytopics/:id" component={UserTopicDetails} />
           <PrivateRoute exact path="/mycomments" component={MyComments} />
           <PrivateRoute exact path="/" component={Home} />

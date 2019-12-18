@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import topicService from "../lib/topic-service";
 import { Link } from 'react-router-dom'
-import TopicCardUser from '../components/TopicCardUser';
+import TopicCard from '../components/TopicCardUser';
 import UserTopicDetails from '../components/UserTopicDetails'
+import { withAuth } from '../lib/AuthProvider';
 
 
-export default class MyTopics extends Component {
+class MyTopics extends Component {
 
     state = {
         listOfTopics: []
@@ -15,6 +16,8 @@ export default class MyTopics extends Component {
         topicService
             .getMyTopics()
                 .then( (data) => {
+                    console.log('GET MY TOPICS', data);
+                    
                     this.setState({ listOfTopics: data })
                 })
                 .catch( (err) => console.log(err));
@@ -25,7 +28,7 @@ export default class MyTopics extends Component {
         const allMyTopics = listOfTopics.map((element ,i)=> {
             return (
                 <Link to={`/mytopics/${element._id}`} key={i} component={UserTopicDetails}>
-                    <TopicCardUser
+                    <TopicCard
                         title={element.title}
                         description={element.message}
                         comments={element.comments}
@@ -43,3 +46,5 @@ export default class MyTopics extends Component {
         )
     }
 }
+
+export default withAuth(MyTopics)

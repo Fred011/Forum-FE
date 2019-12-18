@@ -27,13 +27,15 @@ class Topic {
   getMyTopics = () => {
     return this.topic.get(process.env.REACT_APP_API_URL + '/mytopics')
       .then( (response) => {
+        console.log('MY TOPICS SERVICE', response.data);
+        
         return response.data
       })
       .catch( (err) => console.log(err));
   }
 
   getUserTopic = (id) => {
-    return this.topic.get(process.env.REACT_APP_API_URL + `/mytopics/${id}`, id)
+    return this.topic.get(process.env.REACT_APP_API_URL + `/mytopics/${id}`)
       .then( (response) => {
         console.log('RESPONSE', response.data);
         

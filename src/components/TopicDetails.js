@@ -3,6 +3,7 @@ import topicService from "../lib/topic-service";
 import commentService from "../lib/comment-service";
 import CommentForm from "./CommentForm";
 import { withAuth } from "../lib/AuthProvider";
+import Auth from '../lib/auth-service'
 
 class TopicDetails extends Component {
   state = {
@@ -15,6 +16,12 @@ class TopicDetails extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
+    Auth.me()
+    .then( (res) => console.log(res.topics))
+    .catch( (err) => console.log(err));
+
+    console.log('this.props44444444', this.props);
+    
     topicService
       .getOneTopic(id)
       .then(topic => {
@@ -86,7 +93,7 @@ class TopicDetails extends Component {
                 </h6>
               </div>
 
-              <CommentForm {...this.props} topicID={this.state.topic._id} />
+              <CommentForm topicID={this.state.topic._id} />
 
               <div className="comment-section">
                 <h1>COMMENTS SHOULD BE THERE</h1>

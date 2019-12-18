@@ -12,12 +12,12 @@ class TopicDetails extends Component {
     }
 
     componentDidMount() {
-        const { id } = this.props.match.params
+        const { _id } = this.props.match.params
         console.log('this.props.match.params', this.props.match.params);
         
 
         topicService
-            .getUserTopic(id)
+            .getUserTopic(_id)
             .then( (topic) => {
                 // this.setState({ topic: topic })
                 console.log('MY TOPIC', topic);

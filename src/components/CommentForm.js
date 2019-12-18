@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import commentService from '../lib/comment-service'
 import topicService from '../lib/topic-service'
+import { withAuth } from '../lib/AuthProvider'
 
 class CommentForm extends Component {
     constructor(props) {
@@ -54,4 +55,4 @@ class CommentForm extends Component {
     }
 }
 
-export default CommentForm;
+export default withAuth(CommentForm);
