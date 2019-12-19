@@ -3,8 +3,8 @@ import topicService from "../lib/topic-service";
 import commentService from "../lib/comment-service";
 import CommentForm from "./CommentForm";
 import { withAuth } from "../lib/AuthProvider";
-import Auth from "../lib/auth-service";
 import CommentCardTopic from "./CommentCardTopic";
+import Navbar from "./Navbar";
 
 class TopicDetails extends Component {
   state = {
@@ -29,8 +29,6 @@ class TopicDetails extends Component {
           upvotes: topic.upVotes,
           downvotes: topic.downVotes
         });
-        console.log("TOPIC", this.state.topic);
-        console.log("ListOfComments", this.state.listOfComments);
       })
       .catch(err => console.log(err));
   };
@@ -67,16 +65,18 @@ class TopicDetails extends Component {
                 commentUser={element.user.username}
                 commentDate={element.createdAt}
             />
-          {/* <h3>comment: {element.message}</h3> */}
         </div>
       );
     });
 
     const { title, message, creator, category, comments } = this.state.topic;
     const { username } = this.props.user;
+    console.log('CREATOR THIS STATE TOPIC', this.state.topic);
 
     return (
-      <div>
+            <div className="testcards">
+              <Navbar />
+      <div className='test-flex'>
         {creator ? (
           <div>
             {username === creator.username ? (
@@ -86,6 +86,7 @@ class TopicDetails extends Component {
                 </button>
               </div>
             ) : null}
+            <div className='test-flex'>
             <div className="topic-details-container">
               <div className="left-part">
                 <div className="topic-info">
@@ -115,15 +116,20 @@ class TopicDetails extends Component {
                     alt="profile-picture"
                   />
                 </div>
-                picture username
+                <div className='name-user-topic'>
+                  {creator.username}
+                </div>
                 <button className="see-profile-btn">SEE PROFILE</button>
               </div>
             </div>
+          </div>
           </div>
         ) : (
           <div>Loading...</div>
         )}
       </div>
+      
+          </div>
     );
   }
 }

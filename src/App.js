@@ -9,7 +9,7 @@ import Default from './pages/Default';
 import Profile from './pages/Profile';
 import EditProfile from './components/EditProfile';
 import Navbar from './components/Navbar';
-// import TopicDetails from './components/TopicDetails'
+import UserTopicDetails from './components/UserTopicDetails'
 import Search from './components/Search';
 import MyTopics from './pages/MyTopics';
 import MyComments from './pages/MyComments';
@@ -26,6 +26,7 @@ class App extends Component {
 
   state = {
     topicsArr: [],
+    showNav: false,
     search: ''
   }
 
@@ -51,8 +52,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
-
         {/* <Search
           searching={this.state.search} 
           //theSearch={this.updateSearch}
@@ -65,8 +64,8 @@ class App extends Component {
           <PrivateRoute exact path="/profile-edit" component={EditProfile} />
           <PrivateRoute exact path="/addtopic" component={NewTopic} />
           <PrivateRoute exact path="/topic/:id" component={TopicDetails} />
-          <PrivateRoute exact path="/mytopics" component={TopicDetails} />
-          <PrivateRoute exact path="/mytopics/:id" component={TopicDetails} />
+          <PrivateRoute exact path="/mytopics" component={MyTopics} />
+          <PrivateRoute exact path="/mytopics/:id" component={UserTopicDetails} />
           <PrivateRoute exact path="/mycomments" component={MyComments} />
           <PrivateRoute exact path="/" component={Home} />
           <Route component={Default}/>

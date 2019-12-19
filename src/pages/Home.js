@@ -4,6 +4,7 @@ import { withAuth } from "../lib/AuthProvider";
 import TopicCard from "../components/TopicCard";
 import topicService from "../lib/topic-service";
 import { Link } from 'react-router-dom';
+import Navbar from "../components/Navbar";
 
 
 
@@ -27,10 +28,9 @@ class Home extends Component {
   }
 
   render() {
-//            creator={element.creator}
+
     const { listOfTopics } = this.state;
     const allTopics = listOfTopics.map((element ,i)=> {
-      console.log('IN MAAAAAAAP', element);
       
       return (
         
@@ -48,13 +48,18 @@ class Home extends Component {
     });
 
     return (
-      <div className='home'>
-        <h1>Recent</h1>
-        <div className="active"></div>
-        <div className='last-topics-container'>
-          {allTopics}
+      <div className='testcards'>
+        <Navbar />
+        <div className='home'>
+          <h1>Recent</h1>
+          <div className="active"></div>
+        <div className='big-topic-container'></div>
+          <div className='last-topics-container'>
+            {allTopics}
+          </div>
         </div>
       </div>
+      
     );
   }
 }

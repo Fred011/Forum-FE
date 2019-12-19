@@ -7,6 +7,7 @@ import TopicListProfile from "./../components/TopicListProfile";
 import userService from "../lib/user-service";
 import TopicCardProfile from "../components/TopicCardProfile";
 import CommentCardProfile from "../components/CommentCardProfile";
+import Navbar from "../components/Navbar";
 
 
 class Profile extends Component {
@@ -15,7 +16,7 @@ class Profile extends Component {
     description: "",
     topicsList: [],
     commentsList: [],
-    showCard: false
+    showCard: true
   };
 
   componentDidMount() {
@@ -74,6 +75,8 @@ class Profile extends Component {
     })
 
     const { topicsList } = this.state;
+    console.log('TOPICLIST PROFILE', topicsList);
+    
     const allMyTopics = topicsList.map( element => {
 
       return <TopicCardProfile key={element._id} title={element.title} message={element.message} />
@@ -84,6 +87,8 @@ class Profile extends Component {
     })
 
     return (
+                  <div className='testcards'>
+                <Navbar />
       <div className="profile-container">
 
         <div className="profile-data">
@@ -100,14 +105,11 @@ class Profile extends Component {
 
         </div>
 
-        <div className="separation-profile"></div>
+        <div className="separation-profile"> <p> </p></div>
 
         <div className="fav-section">
-          <h1>
-            {/* <Link to="/profile/mytopics">My Topics</Link>  */}
-            <h2 onClick={() => this.toggleSection()}>TOPICS</h2>
-            <Link to="/profile/mycomments">My comments</Link>
-          </h1>
+            <h2 onClick={() => this.toggleSection()}>TOPICS / COMMENTS</h2>
+            
           {this.state.showCard ? (
               <div>
                 {allMyTopics}
@@ -120,6 +122,7 @@ class Profile extends Component {
           }
         </div>
 
+      </div>
       </div>
     );
   }

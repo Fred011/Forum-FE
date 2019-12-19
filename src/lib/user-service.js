@@ -9,7 +9,7 @@ class User {
   }
 
   getMyComments() {
-    return this.user.get('/mycomments')
+    return this.user.get(process.env.REACT_APP_API_URL + '/mycomments')
       .then(response => {
         console.log('my comments', response.data);
         return response.data
@@ -18,7 +18,7 @@ class User {
   }
   
   getMyTopics() {
-    return this.user.get('/mytopics').then(response => {
+    return this.user.get(process.env.REACT_APP_API_URL + '/mytopics').then(response => {
       console.log('my topics', response.data);
       return response.data
     })
@@ -26,7 +26,7 @@ class User {
   }
 
   getUserData() {
-    return this.user.get('/profile')
+    return this.user.get(process.env.REACT_APP_API_URL + '/profile')
       .then( (user) => {
         console.log(user.data)
         return user.data
@@ -35,13 +35,17 @@ class User {
   }
 
   updateUserData(newUser) {
-    return this.user.put('profile/edit', newUser)
+    return this.user.put(process.env.REACT_APP_API_URL + 'profile/edit', newUser)
       .then( (res) => {
         console.log('resssssssss', res.data);
         
         return res.data
       })
       .catch( (err) => console.log(err));
+  }
+
+  deleteUser(id) {
+    return this.user.delete(process.env.REACT_APP_API_URL + `profile/${id}/delete`)
   }
  
 

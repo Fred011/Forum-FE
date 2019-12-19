@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { withAuth } from '../lib/AuthProvider';
 
 class Signup extends Component {
-  state = { username: '', password: '' };
+  state = { username: '', password: '', email: '' };
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -18,32 +18,42 @@ class Signup extends Component {
   };
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, email } = this.state;
     return (
       <div className='login-container'>
         <div className="all-login">
-          <h1>Sign Up</h1>
+
           <form className='log' onSubmit={this.handleFormSubmit}>
-            <label>Username:</label>
+
             <input
               type="text"
               name="username"
               value={username}
+              placeholder='username'
               onChange={this.handleChange}
             />
 
-            <label>Password:</label>
+
+            <input
+              type="email"
+              name="email"
+              value={email}
+              placeholder='email address'
+              onChange={this.handleChange}
+            />
+
             <input
               type="password"
               name="password"
               value={password}
+              placeholder='password'
               onChange={this.handleChange}
             />
 
             <input className='signup-btn' type="submit" value="Signup" />
           </form>
 
-          <p>Already have account?<Link to={'/login'}> <span className='span-account2'>Login</span></Link></p>
+          <p className='log-sentence'>Already have account?<Link to={'/login'}> <span className='span-account2'>Login</span></Link></p>
         </div>
       </div>
     );

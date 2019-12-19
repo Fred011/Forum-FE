@@ -34,7 +34,7 @@ class TopicCard extends Component {
                 alt="profile-picture"
               />
             </div>
-            <h4 className='topic-card-username'>{this.props.user.username} </h4>
+            <h4 className='topic-card-username'>{this.props.creator.username} </h4>
           </div>
           <div className="right-column">
             <Link to={`/topic/${this.props.id}`}>

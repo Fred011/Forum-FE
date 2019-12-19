@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withAuth } from '../lib/AuthProvider';
 import userService from '../lib/user-service';
+import { withRouter } from 'react-router-dom'
+import Navbar from './Navbar';
+
 
 
 export class EditProfile extends Component {
 
     state = {
         username: '',
-        description: ''
+        description: '',
+        userID: []
     }
 
     handleChange = (e) => {
@@ -22,16 +26,29 @@ export class EditProfile extends Component {
     // 	.catch( (err) => console.log(err));
     // }
 
+
+    
     componentDidMount() {
         userService.getUserData()
-            .then( (data) => {
-                this.setState({
-                    username: data.username,
-                    description: data.description
-                })
+        .then( (data) => {
+            this.setState({
+                username: data.username,
+                description: data.description,
+                userID: data._id
             })
-            .catch( (err) => console.log(err));
+        })
+        .catch( (err) => console.log(err));
     }
+    
+    handleDeleteProfile = (e) => {
+
+        const userID = this.props.user._id
+        console.log('USER ID', userID);
+        
+        // userService.deleteUser(userID).then(() => {
+        //   this.props.history.push("/");
+        // });
+      };
 
     handleFormSubmit = (e) => {
         e.preventDefault();
@@ -50,32 +67,36 @@ export class EditProfile extends Component {
 
     render() {
         return (
+
+                <div className='testcards'>
+                <Navbar />
             <div className='edit-form-container'>
 
                 <div className="form-profile">
 
                     <form className="edit-profile-form" onSubmit={this.handleFormSubmit}>
-                        <label>Username: </label>
+
                         <input type="text" 
                             name="username" 
                             value={this.state.username} 
                             onChange={ (e) => this.handleChange(e) }
                         />
                         
-                        <label>Description:</label>
                         <textarea 
                             name="description" 
                             value={this.state.description} 
+                            placeholder='About you'
                             onChange={ (e) => this.handleChange(e) }
                         />
                         
-                        <input type="submit" value="Submit" />
+                        <input className='submit-btn' type="submit" value="Submit" />
 
-                        <button onClick={() => this.deleteProfile()}>
+                        <button className='delete-btn' onClick={() => this.handleDeleteProfile()}>
                             Delete Profile
                         </button>
                     </form>
 
+                </div>
                 </div>
 
             </div>
@@ -83,4 +104,4 @@ export class EditProfile extends Component {
     }
 }
 
-export default EditProfile
+export default withRouter(EditProfile)

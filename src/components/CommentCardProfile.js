@@ -6,8 +6,10 @@ function CommentCardProfile(props) {
             <div className="card-container">
                 <div className='topic-card-profile'>
                     
-                    <p>description: {props.message}</p>
+                <div className="topic-preview-profile">
+                    <p>{props.message}</p>
 
+                </div>
                 </div>
             </div>
         </div>

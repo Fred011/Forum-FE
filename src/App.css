@@ -5,7 +5,7 @@
   padding: 0;
   font-size: 16px;
   font-family: 'Roboto';
-  /* color: rgb(1, 0, 19); */
+  color: rgb(1, 0, 19);
   text-decoration: none;
 }
 
@@ -25,6 +25,18 @@
   color: white;
 }
 
+::placeholder{
+  text-align: center;
+}
+
+.log-sentence {
+  color: white;
+}
+
+.log-sentence {
+  color: white;
+}
+
 .topic-card-username {
   margin-top: 10px;
 }
@@ -35,11 +47,12 @@
 
 .card-container {
   text-decoration: none;
-  color: #2C2C2C !important;
+  display: flex;
+  justify-content: center;
 }
 
 .all-login {
-  margin-top: 300px;
+  margin-top: 200px;
   text-align: center;
 }
 
@@ -49,12 +62,53 @@
 }
 
 .log input {
-  width: 250px;
+  width: 300px;
   height: 40px;
   border-radius: 5px;
   border: solid 0;
   margin-bottom: 30px;
   box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+}
+
+select {
+  width: 300px;
+  height: 40px;
+  border-radius: 5px;
+  border: solid 0;
+  margin-bottom: 30px;
+  box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+}
+
+textarea {
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+  border: solid 0;
+  margin-bottom: 30px;
+  box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+}
+
+.edit-profile-form textarea {
+  margin-top: 40px;
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+  border: solid 0;
+  margin-bottom: 30px;
+  box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+}
+
+.edit-profile-form input {
+  text-align: center;
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  border: solid 0;
+  box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+}
+
+textarea::placeholder {
+padding-top: 90px;
 }
 
 .span-account {
@@ -171,7 +225,14 @@
 
 .fav-section {
   margin-top: 200px;
-  /* margin-left: 100px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fav-section h2 {
+  margin-bottom: 30px;
+  font-size: 1.3rem;
 }
 
 .home {
@@ -193,11 +254,23 @@
   margin-bottom: 50px;
 }
 
+.big-topic-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.testcards {
+  width: 100%;
+}
+
 .topic-card {
   display: flex;
-  margin-left: 250px;
-  width: 1200px;
+  /* margin-left: 250px; */
+  width: 900px;
   height: 150px;
+  margin: 0 auto;
   margin-bottom: 50px;
   padding-top: 50px;
   padding-left: 50px;
@@ -215,7 +288,7 @@
   padding-top: 50px;
   padding-left: 30px;
   border-radius: 7px;
-  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.161);
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.161);
 }
 
 .fav-section h1 {
@@ -240,10 +313,23 @@
   font-size: 1.1rem;
   margin-top: 30px;
   display: block;
-  width: 950px;
+  width: 650px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.delete-btn {
+  margin-top: 20px;
+  background-color: #FF006C ;
+  color: white;
+  box-shadow: 4px 0px 10px 0px ;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 0 solid;
+  text-transform: uppercase;
 }
 
 .topic-card h5 {
@@ -278,7 +364,6 @@
 .topic-details-container {
   display: flex;
   flex-direction: row;
-  margin-left: 200px;
   margin-top: 200px;
 }
 
@@ -297,7 +382,8 @@
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
+  margin-top: 100px;
 }
 
 .left-part {
@@ -327,11 +413,33 @@
 }
 
 .input-comment {
-  width: 500px;
+  width: 100%;
   margin-right: 15px;
   border-radius: 5px;
   border: 0 solid;
   box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.301);
+}
+
+.test-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.topic-preview-profile h3 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 25px;
+
+  /* white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-wrap: normal; */
+}
+
+.topic-preview-profile p {
+  width: 570px;
+  overflow-wrap: normal;
+  overflow: scroll;
+  height: 90px;
 }
 
 .submit-btn {
@@ -438,6 +546,13 @@
   border-radius: 7px;
   border: 0 solid;
   width: max-content;
+  margin-top: 30px;
+}
+
+.name-user-topic {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .edit-form-container {
@@ -475,6 +590,12 @@
   height: 1px;
   background-color: #0076FF;
   margin-bottom: 200px;
+}
+
+.add-topic-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import commentService from '../lib/comment-service';
 import CommentCard from '../components/CommentCard';
+import Navbar from '../components/Navbar';
+
 
 
 export default class MyComments extends Component {
@@ -34,6 +36,7 @@ export default class MyComments extends Component {
         
         return (
             <div>
+                <Navbar />
             <div className="my-topics"></div>
                 {allMyComments}
             </div>

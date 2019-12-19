@@ -22,27 +22,27 @@ class Login extends Component {
     return (
       <div className='login-container'>
         <div className="all-login">
-          <h1>Login</h1>
           <form className='log' onSubmit={this.handleFormSubmit}>
-            <label>Username:</label>
+
             <input
               type="text"
               name="username"
               value={username}
+              placeholder='username'
               onChange={this.handleChange}
             />
 
-            <label>Password:</label>
             <input
               type="password"
               name="password"
               value={password}
+              placeholder='password'
               onChange={this.handleChange}
             />
 
             <input className='submit-btn' type="submit" value="Login" />
 
-            <p>Don't have an account? <Link to="/signup"><span className='span-account'>Sign Up</span> </Link></p>
+            <p className='log-sentence'>Don't have an account? <Link to="/signup"><span className='span-account'>Sign Up</span> </Link></p>
           </form>
         </div>
       </div>

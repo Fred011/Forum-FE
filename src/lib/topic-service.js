@@ -35,6 +35,7 @@ class Topic {
   }
 
   getUserTopic = (id) => {
+    console.log('hello from topic service', id);
     return this.topic.get(process.env.REACT_APP_API_URL + `/mytopics/${id}`)
       .then( (response) => {
         console.log('RESPONSE', response.data);

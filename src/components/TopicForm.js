@@ -48,14 +48,13 @@ export class TopicForm extends Component {
 
                     <form className="add-topic-form" onSubmit={this.handleFormSubmit}>
 
-                        <label>Title: </label>
                         <input type="text" 
                             name="title" 
                             value={this.state.title} 
+                            placeholder='Title'
                             onChange={ (e) => this.handleChange(e) }
                         />
 
-                        <label>Category:</label>
                         <select name="category" 
                                 required
                                 onChange={ (e) => this.handleChange(e) }
@@ -71,17 +70,17 @@ export class TopicForm extends Component {
                             <option value="Random">Random</option>
                         </select>
                         
-                        <label>Description:</label>
                         <textarea 
                             name="message" 
                             value={this.state.message} 
+                            placeholder='Your topic here'
                             onChange={ (e) => this.handleChange(e) }
                         />
                         
-                        <input type="submit" value="Submit" />
+                        <input className='submit-btn' type="submit" value="Submit" />
                         
-                        <Link to={'/home'}>
-                            <button>
+                        <Link to={'/'}>
+                            <button className='delete-btn'>
                                 Cancel
                             </button>
                         </Link>

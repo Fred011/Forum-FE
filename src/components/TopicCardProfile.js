@@ -12,7 +12,6 @@ function TopicCardProfile(props) {
                     <div className="topic-preview-profile">
                         <h3>{props.title}</h3>
                         <p>{props.message}</p>
-                        <h5>upvotes: {props.upvotes} downvotes: {props.downvotes}</h5>
                     </div>
                 </div>
             </div>
