@@ -4,8 +4,11 @@ export default function Default(props) {
     console.log('this.props', props);
     
     return (
-        <div>
-            <h1>fuck you the url {props.location.pathname} doesnt exist fuck off u whore</h1>
+        <div className='default'>
+
+            <img src="/JT404.gif" alt="404 page not found"/>
+            <h1>Seems you got lost !!</h1>
+               <p> http://topit.com{props.location.pathname} is not a good URL</p>
         </div>
     )
 }

@@ -41,6 +41,7 @@ class CommentForm extends Component {
                     <form className='comment-form' onSubmit={this.handleFormSubmit}> 
 
                         <input type="text" 
+                            className='input-comment'
                             name="message" 
                             value={this.state.message} 
                             onChange={ (e) => this.handleChange(e) }
