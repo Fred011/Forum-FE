@@ -9,7 +9,7 @@ class User {
   }
 
   getMyComments() {
-    return this.user.get(process.env.REACT_APP_API_URL + '/mycomments')
+    return this.user.get('/mycomments')
       .then(response => {
         console.log('my comments', response.data);
         return response.data
@@ -35,13 +35,29 @@ class User {
   }
 
   updateUserData(newUser) {
-    return this.user.put(process.env.REACT_APP_API_URL + 'profile/edit', newUser)
+    return this.user.put(process.env.REACT_APP_API_URL + '/profile/edit', newUser)
       .then( (res) => {
         console.log('resssssssss', res.data);
         
         return res.data
       })
       .catch( (err) => console.log(err));
+  }
+
+  addFavorites(id) {
+    return this.user.patch(process.env.REACT_APP_API_URL + `/favorites/add/${id}`)
+    .then( (response) => {
+      return response.data
+    })
+    .catch( (err) => console.log(err));
+  }
+
+  getFavorites() {
+    return this.user.get('/favorites')
+    .then( (response) => {
+      return response.data
+    })
+    .catch( (err) => console.log(err));
   }
 
   deleteUser(id) {

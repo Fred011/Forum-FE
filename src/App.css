@@ -285,10 +285,14 @@ padding-top: 90px;
   width: 600px;
   height: 120px;
   margin-bottom: 40px;
-  padding-top: 50px;
+  padding-top: 30px;
   padding-left: 30px;
   border-radius: 7px;
   box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.161);
+}
+
+.favorite {
+  margin-top: 10px;
 }
 
 .fav-section h1 {
@@ -591,6 +595,30 @@ padding-top: 90px;
   background-color: #0076FF;
   margin-bottom: 200px;
 }
+
+.my-comments {
+  height: 50px;
+  width: 900px;
+  border-radius: 5px;
+  border: solid 0;
+  margin-bottom: 30px;
+  box-shadow: 3px 6px 20px 0px rgba(0, 0, 0, 0.24)
+  
+}
+
+.topic-upvote {
+  display: flex;
+}
+
+.my-comments p {
+  margin-left: 50px;
+  margin-top: 15px;
+  width: 800px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 
 .add-topic-form {
   display: flex;

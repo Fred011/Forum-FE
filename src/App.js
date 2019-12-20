@@ -14,12 +14,14 @@ import Search from './components/Search';
 import MyTopics from './pages/MyTopics';
 import MyComments from './pages/MyComments';
 import TopicDetails from './components/TopicDetails.js'
+import Favorites from './pages/Favorites'
 
 
 import AnonRoute from './components/AnonRoute';
 import PrivateRoute from './components/PrivateRoute';
 import NewTopic from './pages/NewTopic';
 import topicService from './lib/topic-service';
+
 
 
 class App extends Component {
@@ -67,6 +69,7 @@ class App extends Component {
           <PrivateRoute exact path="/mytopics" component={MyTopics} />
           <PrivateRoute exact path="/mytopics/:id" component={UserTopicDetails} />
           <PrivateRoute exact path="/mycomments" component={MyComments} />
+          <PrivateRoute exact path="/favorites" component={Favorites} />
           <PrivateRoute exact path="/" component={Home} />
           <Route component={Default}/>
 

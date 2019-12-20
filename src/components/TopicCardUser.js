@@ -14,7 +14,7 @@ function TopicCardUser(props) {
                         <div className="photo">
                             <img src="/Photo Linkedin a envoyer copie.jpg" className='img-topic' alt="profile-picture"/>
                         </div>
-                        <h4>name: {props.creator}</h4>
+                        <h4>{props.creator.username}</h4>
                     </div>
                     <div className="right-column">
                         <h3>{props.title}</h3>

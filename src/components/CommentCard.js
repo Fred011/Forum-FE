@@ -7,9 +7,8 @@ function CommentCard(props) {
     
     return (
             <div className="card-container">
-                <div className='topic-card'>
-                    
-                    <p>description: {props.message}</p>
+                <div className="my-comments">
+                    <p>{props.message}</p>
 
                 </div>
             </div>

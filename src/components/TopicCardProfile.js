@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import TopicDetails from './TopicDetails'
 
 function TopicCardProfile(props) {
-    console.log('inside topic card', props);
     
     return (
             <div className="card-container">
