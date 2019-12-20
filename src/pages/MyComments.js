@@ -21,11 +21,8 @@ export default class MyComments extends Component {
     const { listOfComments } = this.state;
     
     const allMyComments = listOfComments.map((element, i) => {
-        console.log('ELEMENT', element);
       return <CommentCard message={element.message} id={element._id} key={i} />;
     });
-    console.log("commentsssss", listOfComments);
-
     return (
       <div className="testcards">
         <Navbar />

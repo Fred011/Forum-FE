@@ -1,8 +1,6 @@
 import React from 'react'
 
-export default function Default(props) {
-    console.log('this.props', props);
-    
+export default function Default(props) {    
     return (
         <div className='default'>
 

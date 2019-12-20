@@ -17,13 +17,10 @@ class UserTopicDetails extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log("this.props.match.params", this.props.match.params);
 
     topicService
       .getUserTopic(id)
       .then(data => {
-        console.log("fucking data", data);
-
         this.setState({
           listOfTopics: data,
           listOfComments: data.comments,
@@ -37,8 +34,6 @@ class UserTopicDetails extends Component {
 
   getTopic = () => {
     const { id } = this.props.match.params;
-
-    console.log("this.props44444444", this.props);
 
     topicService
       .getOneTopic(id)

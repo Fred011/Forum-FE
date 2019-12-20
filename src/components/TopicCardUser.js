@@ -5,7 +5,6 @@ import MyTopics from '../pages/MyTopics';
 
 
 function TopicCardUser(props) {
-    console.log('inside topic card', props);
     
     return (
             <div className="card-container">

@@ -19,9 +19,7 @@ class Profile extends Component {
     showCard: true
   };
 
-  componentDidMount() {
-    console.log('IN COMPONENT DID MOUNT');
-    
+  componentDidMount() {    
     // userService
     //   .getMyComments()
     //   .then(data => {
@@ -74,9 +72,7 @@ class Profile extends Component {
         // </div>
     })
 
-    const { topicsList } = this.state;
-    console.log('TOPICLIST PROFILE', topicsList);
-    
+    const { topicsList } = this.state;    
     const allMyTopics = topicsList.map( element => {
 
       return <TopicCardProfile key={element._id} title={element.title} message={element.message} />

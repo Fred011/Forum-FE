@@ -24,7 +24,6 @@ class CommentForm extends Component {
         
         commentService.addComment(this.props.topicID, newComment)
         .then( () =>{
-            console.log('this.props', this.props);
             this.props.refreshTopic()
             // this.props.history.push(`/topic/${this.props.topicID}`)
             // window.location = `/topic/${this.props.topicID}`

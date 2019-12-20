@@ -19,24 +19,14 @@ export class TopicForm extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log('this.stategfgfg', this.state.category);
-        
-        let newForm = this.state
-        console.log('stateeeeeeee', newForm);
-        
+        let newForm = this.state        
 
         topicService
         .addTopic(newForm)
         .then(()=> {
-            console.log('this.props', this.props);
             window.location = '/'
           })
           
-    }
-
-    componentDidMount() {
-        console.log('IN COMPONENT DID MOUNT');
-        
     }
 
 

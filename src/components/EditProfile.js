@@ -42,9 +42,7 @@ export class EditProfile extends Component {
     
     handleDeleteProfile = (e) => {
 
-        const userID = this.props.user._id
-        console.log('USER ID', userID);
-        
+        const userID = this.props.user._id        
         // userService.deleteUser(userID).then(() => {
         //   this.props.history.push("/");
         // });
@@ -52,9 +50,7 @@ export class EditProfile extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        let updatedUser = this.state
-        console.log('stateeeeeeee', updatedUser);
-        
+        let updatedUser = this.state        
 
         userService.updateUserData(updatedUser)
             .then(() => {

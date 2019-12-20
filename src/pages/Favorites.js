@@ -31,6 +31,7 @@ export class Favorites extends Component {
             upvote={element.upVote}
             date={element.created_at} // not working
             id={element._id}
+            key={i}
           />
         </div>
       );

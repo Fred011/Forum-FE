@@ -37,7 +37,6 @@ class MyTopics extends Component {
 
   render() {
     const { listOfTopics } = this.state;
-    console.log("LIST OF TOPICS", listOfTopics);
     const allMyTopics = listOfTopics.map((element, i) => {
       return (
         <Link to={`/mytopics/${element._id}`} key={i}>

@@ -439,11 +439,15 @@ padding-top: 90px;
   overflow-wrap: normal; */
 }
 
-.topic-preview-profile p {
+.topic-preview-profile {
   width: 570px;
   overflow-wrap: normal;
   overflow: scroll;
   height: 90px;
+}
+
+.delete-btn-profile-topic {
+  margin-left: 10px;
 }
 
 .submit-btn {

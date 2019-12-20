@@ -26,20 +26,15 @@ class Topic {
  
   getMyTopics = () => {
     return this.topic.get(process.env.REACT_APP_API_URL + '/mytopics')
-      .then( (response) => {
-        console.log('MY TOPICS SERVICE', response.data);
-        
+      .then( (response) => {  
         return response.data
       })
       .catch( (err) => console.log(err));
   }
 
   getUserTopic = (id) => {
-    console.log('hello from topic service', id);
     return this.topic.get(process.env.REACT_APP_API_URL + `/mytopics/${id}`)
-      .then( (response) => {
-        console.log('RESPONSE', response.data);
-        
+      .then( (response) => {        
         return response.data
       })
       .catch( (err) => console.log(err));
@@ -47,17 +42,13 @@ class Topic {
 
   addTopic = (topic) => {
     return this.topic.post(process.env.REACT_APP_API_URL + `/addtopic`, topic)
-      .then( (response) => {
-        console.log('RESPONSE.DATAAAAAAA', response.data);
-        
+      .then( (response) => {        
         return response.data
       })
       .catch( (err) => console.log(err));
   }
 
-  deleteOneTopic = (id) => {
-    console.log('HELLO FROM SERVICE');
-    
+  deleteOneTopic = (id) => {    
     return this.topic.delete(process.env.REACT_APP_API_URL + `/mytopics/${id}/delete`)
   }
 }

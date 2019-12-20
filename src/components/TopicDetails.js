@@ -26,7 +26,6 @@ class TopicDetails extends Component {
     topicService
       .getOneTopic(id)
       .then(topic => {
-        console.log("PROOOOOOOOOPPPSSSSS <<<<<<<<<", this.props);
         this.setState({
           topic: topic,
           listOfComments: topic.comments
@@ -92,7 +91,6 @@ class TopicDetails extends Component {
 
   render() {
     const { listOfComments } = this.state;
-    console.log("STATE", this.state);
 
     const allTheComments = listOfComments.map(element => {
       return (
@@ -108,7 +106,6 @@ class TopicDetails extends Component {
 
     const { title, message, creator, category, comments } = this.state.topic;
     const { username } = this.props.user;
-    console.log("CREATOR THIS STATE TOPIC", this.state.topic);
 
     return (
       <div className="testcards">
