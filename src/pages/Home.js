@@ -14,15 +14,16 @@ class Home extends Component {
     listOfTopics: [],
     listOfComments: [],
     creator: [],
-    upvote: '',
-    downvote: ''
+    vote: 99
   };
 
   componentDidMount() {
     topicService
       .getAllTopics()
       .then(data => {
-        this.setState({ listOfTopics: data, listOfComments: data.comments, creator: data.creator, upvote: data.upVote, downvote: data.downVote});
+        this.setState({ listOfTopics: data, listOfComments: data.comments, creator: data.creator, vote: data.vote });
+        console.log('vote', data);
+        
       })
       .catch(err => console.log(err));
   }
@@ -32,6 +33,7 @@ class Home extends Component {
     const { listOfTopics } = this.state;
     const allTopics = listOfTopics.map((element ,i)=> {
       
+      console.log('ELEMEEEEENT VOOOOTE', element.vote);
       return (
         
           <TopicCard
@@ -39,13 +41,13 @@ class Home extends Component {
             creator={element.creator}
             description={element.message}
             comments={element.comments}
-            upvote={element.upVote}
+            vote={element.vote}
             date={element.created_at} // not working
             id={element._id}
             key={i}
           />
-
       );
+      
     });
 
     return (

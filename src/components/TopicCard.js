@@ -6,13 +6,17 @@ import userService from "../lib/user-service";
 
 class TopicCard extends Component {
 
-    state = {
-      upvote: 0,
+  constructor(props) {
+
+    super(props)
+    this.state = {
+      vote: 0,
       showArrowBlack: true
     };
+  }
 
   componentDidMount() {
-    this.setState({ upvote: this.props.upvote})
+    this.setState({ vote: this.props.vote})
   }
 
   // componentDidUpdate(prevprops,prevstate) {
@@ -23,13 +27,15 @@ class TopicCard extends Component {
     let newVote;
 
     if(sign === '+') {
-      newVote = this.state.upvote +1;
+      newVote = this.props.vote +1;
       this.toggleUpVote()
+      console.log('PROOOOOPS', this.state.vote);
+      
     } else { 
-      newVote = this.state.upvote -1
+      newVote = this.state.vote -1
       this.toggleDownVote()
     }
-    this.setState({ upvote: newVote });
+    this.setState({ vote: newVote });
   };
 
 
@@ -199,10 +205,10 @@ class TopicCard extends Component {
                     onClick={() => this.handleUpVote('+')}
                     className="arrow-vote"
                     src="/arrow-up.svg"
-                    alt="upvote"
+                    alt="vote"
                 />
 
-                {this.state.upvote}
+                {this.state.vote}
                 <img className="arrow-vote" 
                     src="/arrow-down.svg" 
                     onClick={() => this.handleUpVote('-')}

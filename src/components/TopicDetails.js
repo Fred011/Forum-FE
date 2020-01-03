@@ -6,7 +6,7 @@ import { withAuth } from "../lib/AuthProvider";
 import CommentCardTopic from "./CommentCardTopic";
 import Navbar from "./Navbar";
 import userService from "../lib/user-service";
-
+ 
 class TopicDetails extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ class TopicDetails extends Component {
       topic: [],
       listOfComments: [],
       comment: [],
-      upvotes: 0,
+      vote: '',
       showArrowBlack: true,
       favorited: false
     };
@@ -28,7 +28,8 @@ class TopicDetails extends Component {
       .then(topic => {
         this.setState({
           topic: topic,
-          listOfComments: topic.comments
+          listOfComments: topic.comments,
+          vote: topic.vote
         });
       })
       .catch(err => console.log(err));

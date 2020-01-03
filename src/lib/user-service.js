@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+ 
 class User {
   constructor() {
     this.user = axios.create({
