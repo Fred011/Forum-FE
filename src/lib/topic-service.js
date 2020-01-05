@@ -48,6 +48,22 @@ class Topic {
       .catch( (err) => console.log(err));
   }
 
+  addVote = (id) => {
+    return this.topic.put(process.env.REACT_APP_API_URL + `/topic/${id}/vote`)
+      .then( (response) => {        
+        return response.data
+      })
+      .catch( (err) => console.log(err));
+  }
+
+  downVote = (id) => {
+    return this.topic.put(process.env.REACT_APP_API_URL + `/topic/${id}/downvote`)
+      .then( (response) => {        
+        return response.data
+      })
+      .catch( (err) => console.log(err));
+  }
+
   deleteOneTopic = (id) => {    
     return this.topic.delete(process.env.REACT_APP_API_URL + `/mytopics/${id}/delete`)
   }

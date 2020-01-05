@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import TopicDetails from "./TopicDetails";
 import { withAuth } from "../lib/AuthProvider";
-import userService from "../lib/user-service";
+import topicService from "../lib/topic-service";
 
 class TopicCard extends Component {
 
     state = {
-      upvote: 0,
+      vote: 0,
       showArrowBlack: true
     };
 
   componentDidMount() {
-    this.setState({ upvote: this.props.upvote})
+    this.setState({ vote: this.props.vote})
   }
 
   // componentDidUpdate(prevprops,prevstate) {
@@ -23,13 +22,21 @@ class TopicCard extends Component {
     let newVote;
 
     if(sign === '+') {
-      newVote = this.state.upvote +1;
+      newVote = this.state.vote +1;
       this.toggleUpVote()
     } else { 
-      newVote = this.state.upvote -1
+      newVote = this.state.vote -1
       this.toggleDownVote()
     }
-    this.setState({ upvote: newVote });
+
+    const { id } = this.props.match.params;
+
+    topicService
+      .addFavorites(id)
+      .then(voted => console.log("upvoted!!!!!!!!!", voted))
+      .catch(err => console.log(err));
+
+    this.setState({ vote: newVote });
   };
 
 
@@ -202,7 +209,7 @@ class TopicCard extends Component {
                     alt="upvote"
                 />
 
-                {this.state.upvote}
+                {this.props.vote}
                 <img className="arrow-vote" 
                     src="/arrow-down.svg" 
                     onClick={() => this.handleUpVote('-')}

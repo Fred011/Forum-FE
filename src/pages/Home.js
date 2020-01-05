@@ -39,7 +39,7 @@ class Home extends Component {
             creator={element.creator}
             description={element.message}
             comments={element.comments}
-            upvote={element.upVote}
+            vote={element.vote}
             date={element.created_at} // not working
             id={element._id}
             key={i}
