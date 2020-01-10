@@ -1,103 +1,81 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { withAuth } from '../lib/AuthProvider';
-import userService from '../lib/user-service';
-import { withRouter } from 'react-router-dom'
-import Navbar from './Navbar';
-
-
+import React, { Component } from "react";
+import axios from "axios";
+import { withAuth } from "../lib/AuthProvider";
+import userService from "../lib/user-service";
+import { withRouter } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export class EditProfile extends Component {
+  state = {
+    username: "",
+    description: "",
+    userID: []
+  };
 
-    state = {
-        username: '',
-        description: '',
-        userID: []
-    }
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
 
-    handleChange = (e) => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value })
-    }
+  // deleteProfile = () => {
+  //     axios.delete(`http://localhost:5000/profile/${id}/delete`)
+  // 	.then( () => this.props.history.push('/projects') )
+  // 	.catch( (err) => console.log(err));
+  // }
 
-    // deleteProfile = () => {
-    //     axios.delete(`http://localhost:5000/profile/${id}/delete`)
-    // 	.then( () => this.props.history.push('/projects') )
-    // 	.catch( (err) => console.log(err));
-    // }
+  componentDidMount() {
+    userService
+      .getUserData()
+      .then(data => {
+        this.setState({
+          username: data.username,
+          description: data.description,
+          userID: data._id
+        });
+      })
+      .catch(err => console.log(err));
+  }
 
+  handleFormSubmit = e => {
+    e.preventDefault();
+    let updatedUser = this.state;
 
-    
-    componentDidMount() {
-        userService.getUserData()
-        .then( (data) => {
-            this.setState({
-                username: data.username,
-                description: data.description,
-                userID: data._id
-            })
-        })
-        .catch( (err) => console.log(err));
-    }
-    
-    handleDeleteProfile = (e) => {
+    userService.updateUserData(updatedUser).then(() => {
+      this.props.history.push("/profile");
+    });
+  };
 
-        const userID = this.props.user._id        
-        // userService.deleteUser(userID).then(() => {
-        //   this.props.history.push("/");
-        // });
-      };
+  render() {
+    return (
+      <div className="testcards">
+        <Navbar />
+        <div className="edit-form-container">
+          <div className="form-profile">
+            <form
+              className="edit-profile-form"
+              onSubmit={this.handleFormSubmit}
+            >
+              <input
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={e => this.handleChange(e)}
+              />
 
-    handleFormSubmit = (e) => {
-        e.preventDefault();
-        let updatedUser = this.state        
+              <textarea
+                name="description"
+                value={this.state.description}
+                placeholder="About you"
+                onChange={e => this.handleChange(e)}
+              />
 
-        userService.updateUserData(updatedUser)
-            .then(() => {
-                this.props.history.push('/profile');
-            })
-    
-   }
-    
-    
-
-    render() {
-        return (
-
-                <div className='testcards'>
-                <Navbar />
-            <div className='edit-form-container'>
-
-                <div className="form-profile">
-
-                    <form className="edit-profile-form" onSubmit={this.handleFormSubmit}>
-
-                        <input type="text" 
-                            name="username" 
-                            value={this.state.username} 
-                            onChange={ (e) => this.handleChange(e) }
-                        />
-                        
-                        <textarea 
-                            name="description" 
-                            value={this.state.description} 
-                            placeholder='About you'
-                            onChange={ (e) => this.handleChange(e) }
-                        />
-                        
-                        <input className='submit-btn' type="submit" value="Submit" />
-
-                        <button className='delete-btn' onClick={() => this.handleDeleteProfile()}>
-                            Delete Profile
-                        </button>
-                    </form>
-
-                </div>
-                </div>
-
-            </div>
-        )
-    }
+              <input className="submit-btn" type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default withRouter(EditProfile)
+export default withRouter(EditProfile);

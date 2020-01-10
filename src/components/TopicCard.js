@@ -4,56 +4,84 @@ import { withAuth } from "../lib/AuthProvider";
 import topicService from "../lib/topic-service";
 
 class TopicCard extends Component {
-
-    state = {
-      vote: 0,
-      showArrowBlack: true
-    };
-
-  componentDidMount() {
-    this.setState({ vote: this.props.vote})
+  constructor(props) {
+    super(props)
+    this.state = {
+      vote: this.props.vote
+    }
   }
 
-  // componentDidUpdate(prevprops,prevstate) {
-  //   if (prevprops.upvote !== )
+  componentDidMount() {
+    console.log('IN MOUUUUNNNT ', this.props.vote);
+    this.setState({vote: this.props.vote})
+  }
+
+  // componentDidUpdate () {
+  //   this.refreshTopic()
   // }
 
   handleUpVote = (sign) => {
     let newVote;
 
     if(sign === '+') {
-      newVote = this.state.vote +1;
-      this.toggleUpVote()
-    } else { 
-      newVote = this.state.vote -1
-      this.toggleDownVote()
-    }
-
-    const { id } = this.props.match.params;
-
-    topicService
-      .addFavorites(id)
-      .then(voted => console.log("upvoted!!!!!!!!!", voted))
+      // newVote = this.props.vote +1;
+      // console.log('VOOOOOOOTE', this.state.vote);
+      // console.log('NEWVOTEEEEE¡¡¡', newVote);
+      
+      // this.setState({ vote: newVote})
+      
+      const id = this.props.id;
+      
+      topicService
+      .addVote(id)
+      .then(voted => console.log("upVoted!!!!!!!!!", voted))
       .catch(err => console.log(err));
-
-    this.setState({ vote: newVote });
+      
+      topicService
+      .getOneTopic(id)
+      .then( (topic) => this.setState({ vote: topic.vote}))
+      .catch( (err) => console.log(err));
+    }
   };
 
+  handleDownVote = (sign) => {
+    let newVote;
 
-  // handleDownVote = (sign) => {
-  //   let newVote;
+    if(sign === '-') {
+      // newVote = this.props.vote +1;
+      // console.log('VOOOOOOOTE', this.state.vote);
+      // console.log('NEWVOTEEEEE¡¡¡', newVote);
+      
+      // this.setState({ vote: newVote})
+      
+      const id = this.props.id;
+      
+      topicService
+      .downVote(id)
+      .then(voted => console.log("downVoted!!!!!!!!!", voted))
+      .catch(err => console.log(err));
+      
+      topicService
+      .getOneTopic(id)
+      .then( (topic) => this.setState({ vote: topic.vote}))
+      .catch( (err) => console.log(err));
+    }
+  };
 
-  //   if(sign === '-') {
-  //     newVote = this.state.upvote -1
-  //     this.toggleDownVote()
-  //   }
-  //   this.setState({ upvote: newVote });
-  // };
+  refreshTopic = () => {
+
+    const id = this.props.id;
+
+    topicService.getOneTopic(id).then( (topic) =>
+    this.setState({vote: topic.vote}))
+    .catch( (err) => console.log(err));
+  }
 
   toggleUpVote = () => {
     let regularArrow = this.state.showArrowBlack
     this.setState({ showArrowBlack: !regularArrow })
   }
+
   toggleDownVote = () => {
     let regularArrow = this.state.showArrowBlack
     this.setState({ showArrowBlack: !regularArrow })
@@ -84,122 +112,7 @@ class TopicCard extends Component {
             </Link>
             {/* <p>date: {this.props.date}</p> */}
 
-
-              {/* <div className="low-section-topic-card">
-                <h5>
-            {this.state.showArrowBlack ? (
-              <div>
-                <img
-                    onClick={() => this.handleUpVote('+')}
-                    className="arrow-vote"
-                    src="/arrow-up.svg"
-                    alt="upvote"
-                />
-
-              {this.state.upvote}
-                
-                <img className="arrow-vote" 
-                    src="/arrow-down.svg" 
-                    onClick={() => this.handleUpVote('-')}
-                    alt="upvote" />
-                    </div>
-            ) : ( 
-              <div>
-              <img
-                    onClick={() => this.handleUpVote('+')}
-                    className="arrow-vote"
-                    src="/arrow-up2.svg"
-                    alt="upvote"
-                />
-
-                {this.state.upvote}
-                
-                <img className="arrow-vote" 
-                    src="/arrow-down.svg" 
-                    onClick={() => this.handleUpVote('-')}
-                    alt="upvote" />
-                    </div>
-            )
-          } */}
-
-
-
-
-
-
-
-
-
-
-
-                {/* {this.state.upvote}
-                {
-                  this.state.showArrowBlack ? (
-                    <img className="arrow-vote" 
-                    src="/arrow-down.svg" 
-                    onClick={() => this.handleDownVote('-')}
-                    alt="upvote" />
-                  ) : (
-                    <img className="arrow-vote" 
-                    src="/arrow-down2.svg" 
-                    alt="upvote" />
-                  )
-                }
-                comments {this.props.comments.length}
-                </h5> */}
-
-
-
-
-
-
-
-
-
-              {/* <div className="low-section-topic-card">
-                <h5>
-            {this.state.showArrowBlack ? (
-                <img
-                    onClick={() => this.handleUpVote('+')}
-                    className="arrow-vote"
-                    src="/arrow-up.svg"
-                    alt="upvote"
-                />
-            ) : (
-              <img
-                    onClick={() => this.handleUpVote('+')}
-                    className="arrow-vote"
-                    src="/arrow-up2.svg"
-                    alt="upvote"
-                />
-            )
-          }
-                {this.state.upvote}
-                {
-                  this.state.showArrowBlack ? (
-                    <img className="arrow-vote" 
-                    src="/arrow-down.svg" 
-                    onClick={() => this.handleDownVote('-')}
-                    alt="upvote" />
-                  ) : (
-                    <img className="arrow-vote" 
-                    src="/arrow-down2.svg" 
-                    alt="upvote" />
-                  )
-                }
-                comments {this.props.comments.length}
-                </h5>
- */}
-
-
-
-
-
-
-
-
-
-
+            {/* VOTE SECTION */}
             <div className="low-section-topic-card">
                 <h5>
                 <img
@@ -209,16 +122,12 @@ class TopicCard extends Component {
                     alt="upvote"
                 />
 
-                {this.props.vote}
+                {this.state.vote}
                 <img className="arrow-vote" 
                     src="/arrow-down.svg" 
-                    onClick={() => this.handleUpVote('-')}
-                    alt="upvote" />
+                    onClick={() => this.handleDownVote('-')}
+                    alt="downVote" />
                 comments {this.props.comments.length}
-                </h5>
-
-                <h5 className='commentNum'>
-                    
                 </h5>
             </div>
           </div>

@@ -41,8 +41,15 @@
   margin-top: 10px;
 }
 
+.description {
+  color: rgb(223, 223, 223);
+  font-style: italic;
+}
+
 .low-section-topic-card {
   display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 .card-container {
@@ -293,6 +300,7 @@ padding-top: 90px;
 
 .favorite {
   margin-top: 10px;
+  margin-left: 20px;
 }
 
 .fav-section h1 {
@@ -338,8 +346,46 @@ padding-top: 90px;
 
 .topic-card h5 {
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 15px;
+}
+
+.topic-card-special {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 75vw;
+  text-transform: uppercase;
+  padding: 10px;
+  border-radius: 7px;
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.161);
+}
+
+.delete {
+  padding-left: 50px;
+}
+
+.delete-profile {
+  width: 75%;
+  height: auto;
+}
+
+.edit-profile-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+
+.votesss {
+  padding-bottom: 10px;
+}
+
+.my-topic-card_votes {
+  justify-content: center;
+  background-color: #FF006C;
+  padding-left: 25px;
+  color: #FF006C;
 }
 
 .left-column {
@@ -377,6 +423,11 @@ padding-top: 90px;
 }
 
 .last-topics-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.last-favorites-added {
   display: flex;
   flex-direction: column-reverse;
 }
@@ -443,7 +494,7 @@ padding-top: 90px;
   width: 570px;
   overflow-wrap: normal;
   overflow: scroll;
-  height: 90px;
+  height: 100px;
 }
 
 .delete-btn-profile-topic {

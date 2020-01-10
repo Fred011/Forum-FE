@@ -42,12 +42,6 @@ class Navbar extends Component {
             </div>
 
             <div className='nav-btn'>
-              <Link to='/mycomments'>
-                <img src="/mycomments.svg" alt="mycomments-section" />
-              </Link>
-            </div>
-
-            <div className='nav-btn'>
               <Link to='/addtopic'>
                 <img src="/create.svg" alt="create a topic" onClick={addTopic} />
                 {/* <button onClick={addTopic}>New Topic</button> */}

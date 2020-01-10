@@ -43,7 +43,7 @@ export class Favorites extends Component {
         <div className="big-topic-container">
           <div>
             {favoritesList ? (
-              <div>{allFavorites}</div>
+              <div className='last-favorites-added'>{allFavorites}</div>
             ) : (
               <h1>Loading...</h1>
             )}

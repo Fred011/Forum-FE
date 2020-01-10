@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import topicService from "../lib/topic-service";
-import commentService from "../lib/comment-service";
 import CommentForm from "./CommentForm";
 import { withAuth } from "../lib/AuthProvider";
 import CommentCardTopic from "./CommentCardTopic";
 import Navbar from "./Navbar";
 import userService from "../lib/user-service";
-
-var equal = require('fast-deep-equal/react');
 
 class TopicDetails extends Component {
   constructor(props) {
@@ -15,7 +12,7 @@ class TopicDetails extends Component {
     this.state = {
       topic: [],
       listOfComments: [],
-      comment: [],
+      favorites: [],
       votes: 0,
       showArrowBlack: true,
       favorited: false
@@ -31,14 +28,33 @@ class TopicDetails extends Component {
         this.setState({
           topic: topic,
           listOfComments: topic.comments,
-          votes: topic.vote
+          votes: topic.vote,
+          favorites: topic.favorites
         });
+        console.log("TOPIIIIIIIIIIIIIC", topic);
       })
       .catch(err => console.log(err));
   };
 
+  checkIfFavorite = () => {
+    const { id } = this.props.match.params;
+    userService
+    .getUserData()
+    .then( (user) => {
+      console.log('USERRRRRR', user);
+      let favArr = user.favorites
+      if(favArr.indexOf(id)) {
+        this.setState({ favorited: true})
+      }
+        
+      console.log('USER FAVORITESSSSSS', favArr)
+    })
+    .catch( (err) => console.log(err));
+  };
+
   componentDidMount() {
     this.getTopic();
+    this.checkIfFavorite();
   }
 
   handleChange = e => {
@@ -55,16 +71,33 @@ class TopicDetails extends Component {
     });
   };
 
-  handleFavorites = () => {
+  handleFavorites = sign => {
     const { id } = this.props.match.params;
 
     userService
       .addFavorites(id)
-      .then(added => console.log("DATAAAAAA", added))
+      .then(added => console.log("DATA", added))
       .catch(err => console.log(err));
+
+    if (sign === "+") {
+      this.setState({ favorited: true });
+    }
   };
 
-  handleUpVote = (sign) => {
+  handleRemoveFavorites = sign => {
+    const { id } = this.props.match.params;
+
+    userService
+      .removeFavorites(id)
+      .then(removed => console.log("REMOVEDDDDD", removed))
+      .catch(err => console.log(err));
+
+    if (sign === "-") {
+      this.setState({ favorited: false });
+    }
+  };
+
+  handleUpVote = sign => {
     let newVote;
     const { id } = this.props.match.params;
 
@@ -73,18 +106,14 @@ class TopicDetails extends Component {
       .then(voted => console.log("upVoted!!!!!!!!!", id))
       .catch(err => console.log(err));
 
-    if(sign === '+') {
-      newVote = this.state.vote +1;
-      this.toggleUpVote()
-    } else { 
-      newVote = this.state.vote -1
-      this.toggleDownVote()
+    if (sign === "+") {
+      newVote = this.state.vote + 1;
+      this.getTopic();
     }
-
     this.setState({ vote: newVote });
   };
 
-  handleDownVote = (sign) => {
+  handleDownVote = sign => {
     let newVote;
     const { id } = this.props.match.params;
 
@@ -93,42 +122,28 @@ class TopicDetails extends Component {
       .then(voted => console.log("downVoted!!!!!!!!!", id))
       .catch(err => console.log(err));
 
-    if(sign === '-') {
-      newVote = this.state.vote -1
-      this.toggleDownVote()
+    if (sign === "-") {
+      newVote = this.state.vote - 1;
+      this.getTopic();
     }
 
     this.setState({ vote: newVote });
   };
 
-  handleCancelVote = () => {
+  // toggleUpVote = () => {
+  //   let regularArrow = this.state.showArrowBlack;
+  //   this.setState({ showArrowBlack: !regularArrow });
+  // };
 
-    if (!this.showArrowBlack) {
-      this.setState({showArrowBlack: true})
-    } 
-  }
-
-  toggleUpVote = () => {
-    let regularArrow = this.state.showArrowBlack;
-    this.setState({ showArrowBlack: !regularArrow });
-  };
-
-  toggleDownVote = () => {
-    let regularArrow = this.state.showArrowBlack;
-    this.setState({ showArrowBlack: !regularArrow });
-  };
+  // toggleDownVote = () => {
+  //   let regularArrow = this.state.showArrowBlack;
+  //   this.setState({ showArrowBlack: !regularArrow });
+  // };
 
   // toggleFavorite = () => {
   //   let noFavorite = this.state.favorited;
   //   this.setState({ favorited: !noFavorite });
   // };
-
-  componentDidUpdate(prevProps) {
-    if(!equal({votes: this.props.vote}, prevProps.vote)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-    {
-      this.getTopic();
-    }
-  }
 
   render() {
     const { listOfComments } = this.state;
@@ -174,8 +189,8 @@ class TopicDetails extends Component {
                         {" "}
                         <div className="low-section-topic-card">
                           <h5>
-
-                            {this.showArrowBlack ? 
+                            {/* Ternary for the arrows */}
+                            {/* {this.showArrowBlack ? 
                             <img
                               onClick={() => this.handleUpVote("+")}
                               className="arrow-vote"
@@ -184,29 +199,45 @@ class TopicDetails extends Component {
                             />
                             : 
                             <img
-                              onClick={() => this.handleCancelVote()}
+                              onClick={() => this.handleUpVote("+")}
                               className="arrow-vote"
                               src="/arrow-up2.svg"
                               alt="upvote"
                             />
-                            }
-
-                            {vote}
+                            } */}
+                            <img
+                              onClick={() => this.handleUpVote("+")}
+                              className="arrow-vote"
+                              src="/arrow-up.svg"
+                              alt="upvote"
+                            />
+                            {this.state.votes}
                             <img
                               className="arrow-vote"
                               src="/arrow-down.svg"
                               onClick={() => this.handleDownVote("-")}
                               alt="downVote"
                             />
+                            comments {this.state.listOfComments.length}
                           </h5>
 
+                          {/* <img
+                              className="favorite"
+                              src="/favorite.svg"
+                              alt="favorite"
+                              onClick={e => {
+                                this.handleFavorites();
+                              }}
+                            /> */}
+
+                          {/* Ternary for the favorites */}
                           {this.state.favorited ? (
                             <img
                               className="favorite"
                               src="/heart2.svg"
                               alt="favorite"
                               onClick={e => {
-                                this.handleFavorites();
+                                this.handleRemoveFavorites("-");
                               }}
                             />
                           ) : (
@@ -215,7 +246,7 @@ class TopicDetails extends Component {
                               src="/favorite.svg"
                               alt="favorite"
                               onClick={e => {
-                                this.toggleFavorite();
+                                this.handleFavorites("+");
                               }}
                             />
                           )}

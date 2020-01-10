@@ -27,7 +27,7 @@ export class TopicForm extends Component {
             window.location = '/'
           })
           
-    }
+    } 
 
 
     render() {
@@ -49,12 +49,13 @@ export class TopicForm extends Component {
                                 required
                                 onChange={ (e) => this.handleChange(e) }
                             >
-                            <option selected disabled hidden value="Default">choose one</option>
+                            <option selected disabled hidden value="Default">Choose one</option>
+                            <option value="Gaming">Choose one</option>
                             <option value="Gaming">Gaming</option>
                             <option value="Lifestyle">Lifestyle</option>
                             <option value="Sport">Sport</option>
                             <option value="Food">Food</option>
-                            <option value="Coding">Coding</option>
+                            <option value="Coding">UX-UI</option>
                             <option value="UX-UI">Coding</option>
                             <option value="Fun">Fun</option>
                             <option value="Random">Random</option>
