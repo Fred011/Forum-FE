@@ -39,17 +39,21 @@ class TopicDetails extends Component {
   checkIfFavorite = () => {
     const { id } = this.props.match.params;
     userService
-    .getUserData()
-    .then( (user) => {
-      console.log('USERRRRRR', user);
-      let favArr = user.favorites
-      if(favArr.indexOf(id)) {
-        this.setState({ favorited: true})
-      }
-        
-      console.log('USER FAVORITESSSSSS', favArr)
-    })
-    .catch( (err) => console.log(err));
+      .getUserData()
+      .then(user => {
+        console.log("USERRRRRR", user);
+        let favArr = user.favorites;
+        if (favArr.includes(id)) {
+          let test = favArr.forEach(element => {
+            if (element === id) {
+              this.setState({ favorited: true });
+            }
+          });
+        }
+
+        console.log("USER FAVORITESSSSSS", favArr);
+      })
+      .catch(err => console.log(err));
   };
 
   componentDidMount() {
@@ -129,22 +133,7 @@ class TopicDetails extends Component {
 
     this.setState({ vote: newVote });
   };
-
-  // toggleUpVote = () => {
-  //   let regularArrow = this.state.showArrowBlack;
-  //   this.setState({ showArrowBlack: !regularArrow });
-  // };
-
-  // toggleDownVote = () => {
-  //   let regularArrow = this.state.showArrowBlack;
-  //   this.setState({ showArrowBlack: !regularArrow });
-  // };
-
-  // toggleFavorite = () => {
-  //   let noFavorite = this.state.favorited;
-  //   this.setState({ favorited: !noFavorite });
-  // };
-
+  
   render() {
     const { listOfComments } = this.state;
 
