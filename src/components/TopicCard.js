@@ -2,95 +2,161 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import topicService from "../lib/topic-service";
+import userService from "../lib/user-service";
 
 class TopicCard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      vote: this.props.vote
-    }
+      votes: 0,
+      currentUserFav: [],
+      currentUserUpVotes: [],
+      currentUserDownVotes: [],
+      favorited: false,
+      currentUserUpVoted: false,
+      currentUserDownVoted: false
+    };
   }
 
   componentDidMount() {
-    console.log('IN MOUUUUNNNT ', this.props.vote);
-    this.setState({vote: this.props.vote})
+    this.getTopic();
+    this.getUser();
+    console.log("IN MOUUUUUNT", this.props.vote);
+    this.checkIfUpVoted();
+    this.checkIfDownVoted();
   }
 
-  // componentDidUpdate () {
-  //   this.refreshTopic()
-  // }
+  getTopic = () => {
+    const id = this.props.id;
 
-  handleUpVote = (sign) => {
-    let newVote;
-
-    if(sign === '+') {
-      // newVote = this.props.vote +1;
-      // console.log('VOOOOOOOTE', this.state.vote);
-      // console.log('NEWVOTEEEEE¡¡¡', newVote);
-      
-      // this.setState({ vote: newVote})
-      
-      const id = this.props.id;
-      
-      topicService
-      .addVote(id)
-      .then(voted => console.log("upVoted!!!!!!!!!", voted))
-      .catch(err => console.log(err));
-      
-      topicService
+    topicService
       .getOneTopic(id)
-      .then( (topic) => this.setState({ vote: topic.vote}))
-      .catch( (err) => console.log(err));
-    }
+      .then(topic => {
+        this.setState({
+          votes: topic.vote,
+        });
+        // console.log("TOPIIIIIIIIIIIIIC", topic);
+      })
+      .catch(err => console.log(err));
   };
 
-  handleDownVote = (sign) => {
-    let newVote;
-
-    if(sign === '-') {
-      // newVote = this.props.vote +1;
-      // console.log('VOOOOOOOTE', this.state.vote);
-      // console.log('NEWVOTEEEEE¡¡¡', newVote);
-      
-      // this.setState({ vote: newVote})
-      
-      const id = this.props.id;
-      
-      topicService
-      .downVote(id)
-      .then(voted => console.log("downVoted!!!!!!!!!", voted))
+  getUser = () => {
+    userService
+      .getUserData()
+      .then(user => {
+        this.setState({
+          currentUserFav: user.favorites,
+          currentUserDownVotes: user.downVotes,
+          currentUserUpVotes: user.upVotes
+        });
+        console.log("USER DATA", user);
+      })
       .catch(err => console.log(err));
-      
-      topicService
-      .getOneTopic(id)
-      .then( (topic) => this.setState({ vote: topic.vote}))
-      .catch( (err) => console.log(err));
-    }
+  };
+
+  checkIfUpVoted = () => {
+    const id = this.props.id;
+
+    userService
+      .getUserData()
+      .then(user => {
+        let upVotesArr = user.upVotes;
+        if (upVotesArr.includes(id)) {
+          this.setState({ currentUserUpVoted: !this.state.currentUserUpVoted });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  checkIfDownVoted = () => {
+    const id = this.props.id;
+    userService
+      .getUserData()
+      .then(user => {
+        let downVoteArr = user.downVotes;
+        if (downVoteArr.includes(id)) {
+          this.setState({
+            currentUserDownVoted: !this.state.currentUserDownVoted
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleUpVote = sign => {
+    const id = this.props.id;
+    topicService
+      .addVote(id)
+      .then(() => {
+        this.setState({ currentUserUpVoted: this.state.currentUserUpVoted });
+        this.getTopic();
+        this.checkIfUpVoted();
+        this.checkIfDownVoted();
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleCancelUpVote = sign => {
+    const id = this.props.id;
+
+    topicService
+      .cancelUpVote(id)
+      .then(() => {
+        this.setState({ currentUserUpVoted: !this.state.currentUserUpVoted });
+        this.getTopic();
+        this.checkIfUpVoted();
+        this.checkIfDownVoted();
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleDownVote = sign => {
+    const id = this.props.id;
+    topicService
+      .downVote(id)
+      .then(() => {
+        this.setState({ currentUserDownVoted: this.state.currentUserDownVoted });
+        this.getTopic();
+        this.checkIfDownVoted();
+        this.checkIfUpVoted();
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleCancelDownVote = sign => {
+    const id = this.props.id;
+
+    topicService
+      .cancelDownVote(id)
+      .then(() => {
+        this.setState({ currentUserDownVoted: !this.state.currentUserDownVoted });
+        this.getTopic();
+        this.checkIfDownVoted();
+        this.checkIfUpVoted();
+      })
+      .catch(err => console.log(err));
   };
 
   refreshTopic = () => {
-
     const id = this.props.id;
 
-    topicService.getOneTopic(id).then( (topic) =>
-    this.setState({vote: topic.vote}))
-    .catch( (err) => console.log(err));
-  }
+    topicService
+      .getOneTopic(id)
+      .then(topic => this.setState({ vote: topic.vote }))
+      .catch(err => console.log(err));
+  };
 
   toggleUpVote = () => {
-    let regularArrow = this.state.showArrowBlack
-    this.setState({ showArrowBlack: !regularArrow })
-  }
+    let regularArrow = this.state.showArrowBlack;
+    this.setState({ showArrowBlack: !regularArrow });
+  };
 
   toggleDownVote = () => {
-    let regularArrow = this.state.showArrowBlack
-    this.setState({ showArrowBlack: !regularArrow })
-  }
-
- 
+    let regularArrow = this.state.showArrowBlack;
+    this.setState({ showArrowBlack: !regularArrow });
+  };
 
   render() {
-
     return (
       <div className="card-container">
         <div className="topic-card">
@@ -102,7 +168,9 @@ class TopicCard extends Component {
                 alt="profile-picture"
               />
             </div>
-            <h4 className='topic-card-username'>{this.props.creator.username} </h4>
+            <h4 className="topic-card-username">
+              {this.props.creator.username}{" "}
+            </h4>
           </div>
           <div className="right-column">
             <Link to={`/topic/${this.props.id}`}>
@@ -114,21 +182,59 @@ class TopicCard extends Component {
 
             {/* VOTE SECTION */}
             <div className="low-section-topic-card">
-                <h5>
-                <img
-                    onClick={() => this.handleUpVote('+')}
+              <h5>
+                {/* Ternary for the arrows */}
+                {!this.state.currentUserDownVoted ? (
+                  this.state.currentUserUpVoted ? (
+                    <img
+                      onClick={() => this.handleCancelUpVote("-")}
+                      className="arrow-vote"
+                      src="/arrow-up2.svg"
+                      alt="cancel vote"
+                    />
+                  ) : (
+                    <img
+                      onClick={() => this.handleUpVote("+")}
+                      className="arrow-vote"
+                      src="/arrow-up.svg"
+                      alt="upVote"
+                    />
+                  )
+                ) : (
+                  <img
                     className="arrow-vote"
                     src="/arrow-up.svg"
-                    alt="upvote"
-                />
-
-                {this.state.vote}
-                <img className="arrow-vote" 
-                    src="/arrow-down.svg" 
-                    onClick={() => this.handleDownVote('-')}
-                    alt="downVote" />
+                    onClick={() => this.handleCancelDownVote("+")}
+                    alt="upVote"
+                  />
+                )}
+                {this.state.votes}
+                {!this.state.currentUserUpVoted ? (
+                  this.state.currentUserDownVoted ? (
+                    <img
+                      className="arrow-vote"
+                      src="/arrow-down2.svg"
+                      onClick={() => this.handleCancelDownVote("+")}
+                      alt="downVote"
+                    />
+                  ) : (
+                    <img
+                      className="arrow-vote"
+                      src="/arrow-down.svg"
+                      onClick={() => this.handleDownVote("-")}
+                      alt="downVote"
+                    />
+                  )
+                ) : (
+                  <img
+                    className="arrow-vote"
+                    src="/arrow-down.svg"
+                    onClick={() => this.handleCancelUpVote("-")}
+                    alt="upVote"
+                  />
+                )}
                 comments {this.props.comments.length}
-                </h5>
+              </h5>
             </div>
           </div>
         </div>
