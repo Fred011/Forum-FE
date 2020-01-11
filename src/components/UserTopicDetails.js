@@ -122,7 +122,7 @@ class UserTopicDetails extends Component {
                   <img
                     src="/Photo Linkedin a envoyer copie.jpg"
                     className="img-inside-topic"
-                    alt="profile-picture"
+                    alt=""
                   />
                 </div>
                 <div className="name-user-topic">{creator.username}</div>

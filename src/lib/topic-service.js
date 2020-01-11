@@ -62,9 +62,28 @@ class Topic {
       .catch(err => console.log(err));
   };
 
+  cancelUpVote = id => {
+    return this.topic
+      .put(process.env.REACT_APP_API_URL + `/topic/${id}/cancelupvote`)
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => console.log(err));
+  };
+
+  
   downVote = id => {
     return this.topic
-      .put(process.env.REACT_APP_API_URL + `/topic/${id}/downvote`)
+    .put(process.env.REACT_APP_API_URL + `/topic/${id}/downvote`)
+    .then(response => {
+      return response.data;
+    })
+    .catch(err => console.log(err));
+  };
+  
+  cancelDownVote = id => {
+    return this.topic
+      .put(process.env.REACT_APP_API_URL + `/topic/${id}/canceldownvote`)
       .then(response => {
         return response.data;
       })

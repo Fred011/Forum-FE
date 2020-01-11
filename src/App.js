@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Default from './pages/Default';
 import Profile from './pages/Profile';
 import EditProfile from './components/EditProfile';
-import Navbar from './components/Navbar';
+
 import UserTopicDetails from './components/UserTopicDetails'
 import Search from './components/Search';
 import MyTopics from './pages/MyTopics';
@@ -41,15 +41,15 @@ class App extends Component {
         .catch( (err) => console.log(err));
   }
 
-  updateSearch = (e) => {
-    const query = e.target.value;
+  // updateSearch = (e) => {
+  //   const query = e.target.value;
 
-    const filtered = this.state.topicsArr.filter((topic) => {
-      return <div> topic.title.toLowerCase().includes(query.toLowerCase()) </div>
-    })
+  //   const filtered = this.state.topicsArr.filter((topic) => {
+  //     return <div> topic.title.toLowerCase().includes(query.toLowerCase()) </div>
+  //   })
     
-    this.setState({search: query})
-  }
+  //   this.setState({search: query})
+  // }
   
   render() {
     return (

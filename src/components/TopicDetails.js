@@ -11,12 +11,23 @@ class TopicDetails extends Component {
     super(props);
     this.state = {
       topic: [],
+      creator: "",
       listOfComments: [],
       favorites: [],
+      userVotes: [],
       votes: 0,
       showArrowBlack: true,
-      favorited: false
+      favorited: false,
+      currentUserUpVote: false,
+      currentUserDownVote: false
     };
+  }
+
+  componentDidMount() {
+    this.getTopic();
+    this.checkIfFavorite();
+    this.checkIfUpVoted();
+    this.checkIfDownVoted();
   }
 
   getTopic = () => {
@@ -29,9 +40,10 @@ class TopicDetails extends Component {
           topic: topic,
           listOfComments: topic.comments,
           votes: topic.vote,
-          favorites: topic.favorites
+          favorites: topic.favorites,
+          creator: topic.creator.username
         });
-        console.log("TOPIIIIIIIIIIIIIC", topic);
+        // console.log("TOPIIIIIIIIIIIIIC", topic);
       })
       .catch(err => console.log(err));
   };
@@ -41,25 +53,48 @@ class TopicDetails extends Component {
     userService
       .getUserData()
       .then(user => {
-        console.log("USERRRRRR", user);
         let favArr = user.favorites;
         if (favArr.includes(id)) {
-          let test = favArr.forEach(element => {
-            if (element === id) {
-              this.setState({ favorited: true });
-            }
-          });
+          this.setState({ favorited: !this.favorited });
         }
-
-        console.log("USER FAVORITESSSSSS", favArr);
       })
       .catch(err => console.log(err));
   };
 
-  componentDidMount() {
-    this.getTopic();
-    this.checkIfFavorite();
-  }
+  checkIfUpVoted = () => {
+    const { id } = this.props.match.params;
+    userService
+      .getUserData()
+      .then(user => {
+        let upVoteArr = user.upVotes;
+        console.log("USERRRRRR UPVOTESSS", user.upVotes);
+        if (upVoteArr.includes(id)) {
+          this.setState({ currentUserUpVote: !this.state.currentUserUpVote });
+          console.log("TRUUUUUUUUUUUUUUUUUE", this.state.currentUserUpVote);
+        } 
+        // else {
+        //   console.log("FAAAAAAALLSSSSSEEEE", this.state.currentUserUpVote);
+        // }
+      })
+      .catch(err => console.log(err));
+  };
+
+  checkIfDownVoted = () => {
+    const { id } = this.props.match.params;
+    userService
+      .getUserData()
+      .then(user => {
+        let downVoteArr = user.downVotes;
+        console.log("USERRRRRR DOWNNNNVOTESSS", user.downVotes);
+        if (downVoteArr.includes(id)) {
+          this.setState({ currentUserDownVote: !this.state.currentUserDownVote });
+          console.log("TRUUUUUUUUUUUUUUUUUE", this.state.currentUserDownVote);
+        } else {
+          console.log("FAAAAAAALLSSSSSEEEE", this.state.currentUserDownVote);
+        }
+      })
+      .catch(err => console.log(err));
+  };
 
   handleChange = e => {
     const { name, value } = e.target;
@@ -110,12 +145,29 @@ class TopicDetails extends Component {
       .then(voted => console.log("upVoted!!!!!!!!!", id))
       .catch(err => console.log(err));
 
-    if (sign === "+") {
-      newVote = this.state.vote + 1;
+    if (sign === "+" && !this.currentUserVote) {
+      newVote = this.state.votes + 1;
+    }
+    this.setState({ currentUserUpVote: this.state.currentUserUpVote });
+  };
+
+  handleCancelUpVote = sign => {
+    let newVote;
+    const { id } = this.props.match.params;
+
+    topicService
+      .cancelUpVote(id)
+      .then(voted => console.log("downVoted!!!!!!!!!", id))
+      .catch(err => console.log(err));
+
+    if (sign === "-" && !this.state.currentUserUpVote) {
+      newVote = this.state.votes - 1;
+      this.setState({ currentUserUpVote: !this.state.currentUserUpVote });
       this.getTopic();
     }
     this.setState({ vote: newVote });
   };
+
 
   handleDownVote = sign => {
     let newVote;
@@ -126,14 +178,38 @@ class TopicDetails extends Component {
       .then(voted => console.log("downVoted!!!!!!!!!", id))
       .catch(err => console.log(err));
 
-    if (sign === "-") {
-      newVote = this.state.vote - 1;
+    if (sign === "-" && !this.state.currentUserDownVote) {
+      newVote = this.state.votes - 1;
+      this.setState({ currentUserDownVote: this.state.currentUserDownVote})
       this.getTopic();
     }
 
     this.setState({ vote: newVote });
   };
-  
+
+  handleCancelDownVote = sign => {
+    let newVote;
+    const { id } = this.props.match.params;
+
+    // topicService
+    //   .addVote(id)
+    //   .then(voted => console.log("downVoted!!!!!!!!!", id))
+    //   .catch(err => console.log(err));
+
+      topicService
+        .cancelDownVote(id)
+        .then( (canceled) => console.log('downVote canceled',canceled))
+        .catch( (err) => console.log(err));
+
+    if (sign === "+" && this.state.currentUserDownVote) {
+      newVote = this.state.votes - 1;
+      this.setState({ currentUserDownVote: !this.state.currentUserDownVote})
+      this.getTopic();
+    }
+
+    this.setState({ vote: newVote });
+  };
+
   render() {
     const { listOfComments } = this.state;
 
@@ -149,7 +225,7 @@ class TopicDetails extends Component {
       );
     });
 
-    const { title, message, creator, vote, comments } = this.state.topic;
+    const { title, message, creator } = this.state.topic;
     const { username } = this.props.user;
 
     return (
@@ -179,34 +255,43 @@ class TopicDetails extends Component {
                         <div className="low-section-topic-card">
                           <h5>
                             {/* Ternary for the arrows */}
-                            {/* {this.showArrowBlack ? 
-                            <img
+                            {this.state.currentUserUpVote ? (
+                              <img
+                                onClick={() => this.handleCancelUpVote("-")}
+                                className="arrow-vote"
+                                src="/arrow-up2.svg"
+                                alt="cancel vote"
+                              />
+                            ) : (
+                              <img
+                                onClick={() => this.handleUpVote("+")}
+                                className="arrow-vote"
+                                src="/arrow-up.svg"
+                                alt="upVote"
+                              />
+                            )}
+                            {/* <img
                               onClick={() => this.handleUpVote("+")}
                               className="arrow-vote"
                               src="/arrow-up.svg"
                               alt="upvote"
-                            />
-                            : 
-                            <img
-                              onClick={() => this.handleUpVote("+")}
-                              className="arrow-vote"
-                              src="/arrow-up2.svg"
-                              alt="upvote"
-                            />
-                            } */}
-                            <img
-                              onClick={() => this.handleUpVote("+")}
-                              className="arrow-vote"
-                              src="/arrow-up.svg"
-                              alt="upvote"
-                            />
+                            /> */}
                             {this.state.votes}
-                            <img
-                              className="arrow-vote"
-                              src="/arrow-down.svg"
-                              onClick={() => this.handleDownVote("-")}
-                              alt="downVote"
-                            />
+                            {this.state.currentUserDownVote ? (
+                              <img
+                                className="arrow-vote"
+                                src="/arrow-down2.svg"
+                                onClick={() => this.handleCancelDownVote("+")}
+                                alt="downVote"
+                              />
+                            ) : (
+                              <img
+                                className="arrow-vote"
+                                src="/arrow-down.svg"
+                                onClick={() => this.handleDownVote("-")}
+                                alt="downVote"
+                              />
+                            )}
                             comments {this.state.listOfComments.length}
                           </h5>
 
@@ -261,7 +346,9 @@ class TopicDetails extends Component {
                         alt="profile-picture"
                       />
                     </div>
-                    <div className="name-user-topic">{creator.username}</div>
+                    <div className="name-user-topic">
+                      <p>posted by {this.state.creator}</p>
+                    </div>
                     <button className="see-profile-btn">SEE PROFILE</button>
                   </div>
                 </div>

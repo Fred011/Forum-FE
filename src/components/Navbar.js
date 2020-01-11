@@ -8,7 +8,7 @@ import { withAuth } from '../lib/AuthProvider';
 
 class Navbar extends Component {
   render() {
-    const { user, logout, isLoggedin, profile, addTopic } = this.props;
+    const { logout, isLoggedin, profile, addTopic } = this.props;
     return (
       <div className='navbar'>
         {isLoggedin ? (
