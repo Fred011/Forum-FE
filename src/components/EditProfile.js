@@ -52,7 +52,7 @@ export class EditProfile extends Component {
         <div className="edit-form-container">
           <div className="form-profile">
             <form
-              className="edit-profile-form"
+              className="edit-profile-form edit-profile-form-inside"
               onSubmit={this.handleFormSubmit}
             >
               <input
@@ -69,7 +69,7 @@ export class EditProfile extends Component {
                 onChange={e => this.handleChange(e)}
               />
 
-              <input className="submit-btn" type="submit" value="Submit" />
+              <button className="submit-btn" type="submit" value="Submit">SUBMIT</button>
             </form>
           </div>
         </div>

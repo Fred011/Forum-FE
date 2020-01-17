@@ -6,13 +6,8 @@ class TopicCardUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vote: this.props.votes,
-      showArrowBlack: true
+      vote: this.props.votes
     };
-
-    // handleDeleteTopic = () => {
-
-    // }
   }
   render() {
     return (

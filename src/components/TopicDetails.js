@@ -16,7 +16,6 @@ class TopicDetails extends Component {
       favorites: [],
       userVotes: [],
       votes: 0,
-      showArrowBlack: true,
       favorited: false,
       currentUserUpVote: false,
       currentUserDownVote: false
@@ -72,9 +71,6 @@ class TopicDetails extends Component {
           this.setState({ currentUserUpVote: !this.state.currentUserUpVote });
           console.log("TRUUUUUUUUUUUUUUUUUE", this.state.currentUserUpVote);
         }
-        // else {
-        //   console.log("FAAAAAAALLSSSSSEEEE", this.state.currentUserUpVote);
-        // }
       })
       .catch(err => console.log(err));
   };
@@ -91,8 +87,6 @@ class TopicDetails extends Component {
             currentUserDownVote: !this.state.currentUserDownVote
           });
           console.log("TRUUUUUUUUUUUUUUUUUE", this.state.currentUserDownVote);
-        } else {
-          console.log("FAAAAAAALLSSSSSEEEE", this.state.currentUserDownVote);
         }
       })
       .catch(err => console.log(err));
