@@ -8,7 +8,7 @@ import { withAuth } from '../lib/AuthProvider';
 
 class Navbar extends Component {
   render() {
-    const { user, logout, isLoggedin, profile, addTopic } = this.props;
+    const { logout, isLoggedin, profile, addTopic } = this.props;
     return (
       <div className='navbar'>
         {isLoggedin ? (
@@ -38,12 +38,6 @@ class Navbar extends Component {
             <div className='nav-btn'>
               <Link to='/mytopics'>
                 <img src="/mytopics.svg" alt="mytopics-section" />
-              </Link>
-            </div>
-
-            <div className='nav-btn'>
-              <Link to='/mycomments'>
-                <img src="/mycomments.svg" alt="mycomments-section" />
               </Link>
             </div>
 

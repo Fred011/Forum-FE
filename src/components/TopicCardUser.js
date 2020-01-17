@@ -1,29 +1,40 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import UserTopicDetails from './UserTopicDetails';
-import MyTopics from '../pages/MyTopics';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import MyTopics from "../pages/MyTopics";
 
-
-function TopicCardUser(props) {
-    
+class TopicCardUser extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      vote: this.props.votes
+    };
+  }
+  render() {
     return (
-            <div className="card-container">
-                <div className='topic-card'>
-                    <div className="left-column">
-                        <div className="photo">
-                            <img src="/Photo Linkedin a envoyer copie.jpg" className='img-topic' alt="profile-picture"/>
-                        </div>
-                        <h4>{props.creator.username}</h4>
-                    </div>
-                    <div className="right-column">
-                        <h3>{props.title}</h3>
-                        <p>{props.description}</p>
-                        {/* <p>date: {props.date}</p> */}
-                        <h5>upvotes: {props.upvotes} downvotes: {props.downvotes}</h5>
-                    </div>
-                </div>
+      <div>
+        <div className="card-container">
+          <div className="topic-card-special">
+            <div className="topic-card-title">
+              <h3>{this.props.title}</h3>
             </div>
-    )
+            {/* <p>date: {this.props.date}</p> */}
+            <div className="my-topic-card_votes">
+              <p className="votesss">
+                <img className="arrow-vote" src="/arrow-up.svg" alt="upvote" />
+
+                {this.props.votes}
+                <img
+                  className="arrow-vote"
+                  src="/arrow-down.svg"
+                  alt="downVote"
+                />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default TopicCardUser
+export default TopicCardUser;

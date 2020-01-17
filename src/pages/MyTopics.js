@@ -38,12 +38,14 @@ class MyTopics extends Component {
   render() {
     const { listOfTopics } = this.state;
     const allMyTopics = listOfTopics.map((element, i) => {
+      console.log('ELEMENT', element)
       return (
         <Link to={`/mytopics/${element._id}`} key={i}>
           <TopicCardUser
             creator={element.creator}
             title={element.title}
             description={element.message}
+            votes={element.vote}
             comments={element.comments}
             id={element._id}
           />
