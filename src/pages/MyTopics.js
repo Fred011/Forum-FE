@@ -57,7 +57,9 @@ class MyTopics extends Component {
       <div className="testcards">
         <Navbar />
         <div className="big-topic-container">
-          <div>
+          <div className='my-topics-section'>
+          <h1 className='favorites-title'>My Topics</h1>
+          <div className="active"></div>
             {listOfTopics ? <div>{allMyTopics}</div> : <h1>Loading...</h1>}
           </div>
         </div>

@@ -5,7 +5,7 @@ import { withAuth } from "../lib/AuthProvider";
 import CommentCardTopic from "./CommentCardTopic";
 import Navbar from "./Navbar";
 import userService from "../lib/user-service";
- 
+
 class TopicDetails extends Component {
   constructor(props) {
     super(props);
@@ -210,134 +210,120 @@ class TopicDetails extends Component {
       <div className="testcards">
         <Navbar />
         <div className="test-flex">
-          {creator ? (
-            <div>
-              {username === creator.username ? (
-                <div>
-                  <button
-                    className="delete-btn"
-                    onClick={this.handleDeleteTopic}
-                  >
-                    delete
-                  </button>
-                </div>
-              ) : null}
-              <div className="test-flex">
-                <div className="topic-details-container">
-                  <div className="left-part">
-                    <div className="topic-info">
-                      <h1>{title}</h1>
-                      <p>{message}</p>
-                      <h6>
-                        {" "}
-                        <div className="low-section-topic-card">
-                          <h5>
-                            {/* Ternary for the arrows */}
-                            {!this.state.currentUserDownVote ? (
-                              this.state.currentUserUpVote ? (
-                                <img
-                                  onClick={() => this.handleCancelUpVote("-")}
-                                  className="arrow-vote"
-                                  src="/arrow-up2.svg"
-                                  alt="cancel vote"
-                                />
-                              ) : (
-                                <img
-                                  onClick={() => this.handleUpVote("+")}
-                                  className="arrow-vote"
-                                  src="/arrow-up.svg"
-                                  alt="upVote"
-                                />
-                              )
+          <div>
+            <div className="test-flex">
+              <div className="topic-details-container">
+                <div className="left-part">
+                  <div className="topic-info">
+                    <h1>{title}</h1>
+                    <p>{message}</p>
+                    <h6>
+                      {" "}
+                      <div className="low-section-topic-card">
+                        <h5>
+                          {/* Ternary for the arrows */}
+                          {!this.state.currentUserDownVote ? (
+                            this.state.currentUserUpVote ? (
+                              <img
+                                onClick={() => this.handleCancelUpVote("-")}
+                                className="arrow-vote"
+                                src="/arrow-up2.svg"
+                                alt="cancel vote"
+                              />
                             ) : (
                               <img
+                                onClick={() => this.handleUpVote("+")}
                                 className="arrow-vote"
                                 src="/arrow-up.svg"
-                                onClick={() => this.handleCancelDownVote("+")}
                                 alt="upVote"
                               />
-                            )}
-                            {this.state.votes}
-                            {!this.state.currentUserUpVote ? (
-                              this.state.currentUserDownVote ? (
-                                <img
-                                  className="arrow-vote"
-                                  src="/arrow-down2.svg"
-                                  onClick={() => this.handleCancelDownVote("+")}
-                                  alt="downVote"
-                                />
-                              ) : (
-                                <img
-                                  className="arrow-vote"
-                                  src="/arrow-down.svg"
-                                  onClick={() => this.handleDownVote("-")}
-                                  alt="downVote"
-                                />
-                              )
+                            )
+                          ) : (
+                            <img
+                              className="arrow-vote"
+                              src="/arrow-up.svg"
+                              onClick={() => this.handleCancelDownVote("+")}
+                              alt="upVote"
+                            />
+                          )}
+                          {this.state.votes}
+                          {!this.state.currentUserUpVote ? (
+                            this.state.currentUserDownVote ? (
+                              <img
+                                className="arrow-vote"
+                                src="/arrow-down2.svg"
+                                onClick={() => this.handleCancelDownVote("+")}
+                                alt="downVote"
+                              />
                             ) : (
                               <img
                                 className="arrow-vote"
                                 src="/arrow-down.svg"
-                                onClick={() => this.handleCancelUpVote("-")}
-                                alt="upVote"
+                                onClick={() => this.handleDownVote("-")}
+                                alt="downVote"
                               />
-                            )}
-                            comments {this.state.listOfComments.length}
-                          </h5>
-
-                          {/* Ternary for the favorites */}
-                          {this.state.favorited ? (
-                            <img
-                              className="favorite"
-                              src="/heart2.svg"
-                              alt="favorite"
-                              onClick={e => {
-                                this.handleRemoveFavorites("-");
-                              }}
-                            />
+                            )
                           ) : (
                             <img
-                              className="favorite"
-                              src="/favorite.svg"
-                              alt="favorite"
-                              onClick={e => {
-                                this.handleFavorites("+");
-                              }}
+                              className="arrow-vote"
+                              src="/arrow-down.svg"
+                              onClick={() => this.handleCancelUpVote("-")}
+                              alt="upVote"
                             />
                           )}
-                        </div>
-                      </h6>
-                    </div>
+                          comments {this.state.listOfComments.length}
+                        </h5>
 
-                    <CommentForm
-                      refreshTopic={this.getTopic}
-                      topicID={this.state.topic._id}
+                        {/* Ternary for the favorites */}
+                        {this.state.favorited ? (
+                          <img
+                            className="favorite"
+                            src="/heart2.svg"
+                            alt="favorite"
+                            onClick={e => {
+                              this.handleRemoveFavorites("-");
+                            }}
+                          />
+                        ) : (
+                          <img
+                            className="favorite"
+                            src="/favorite.svg"
+                            alt="favorite"
+                            onClick={e => {
+                              this.handleFavorites("+");
+                            }}
+                          />
+                        )}
+                      </div>
+                    </h6>
+                  </div>
+
+                  <CommentForm
+                    refreshTopic={this.getTopic}
+                    topicID={this.state.topic._id}
+                  />
+
+                  <div className="comment-section">{allTheComments}</div>
+                </div>
+
+                <div className="separation"></div>
+
+                <div className="topic-user">
+                  <div className="photo-in-topic">
+                    <img
+                      src="/Photo Linkedin a envoyer copie.jpg"
+                      className="img-inside-topic"
+                      alt="profile-picture"
                     />
-
-                    <div className="comment-section">{allTheComments}</div>
                   </div>
-
-                  <div className="separation"></div>
-
-                  <div className="topic-user">
-                    <div className="photo-in-topic">
-                      <img
-                        src="/Photo Linkedin a envoyer copie.jpg"
-                        className="img-inside-topic"
-                        alt="profile-picture"
-                      />
-                    </div>
-                    <div className="name-user-topic">
-                      <p>posted by {this.state.creator}</p>
-                    </div>
-                    {/* <button className="see-profile-btn">SEE PROFILE</button> */}
+                  <div className="name-user-topic">
+                    <p className="posted">posted by {this.state.creator}</p>
                   </div>
+                  {/* <button className="see-profile-btn">SEE PROFILE</button> */}
                 </div>
               </div>
             </div>
-          ) : (
-            <div>Loading...</div>
-          )}
+          </div>
         </div>
       </div>
     );

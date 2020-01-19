@@ -127,9 +127,14 @@ class Profile extends Component {
             <h2 onClick={() => this.toggleSection()}>TOPICS / COMMENTS</h2>
 
             {this.state.showCard ? (
-              <div>{allMyTopics}</div>
+              <div>{allMyTopics}
+              <div className="end-section"></div>
+              </div>
             ) : (
-              <div>{allMyComments}</div>
+              <div>{allMyComments}
+              <div className="end-section"></div>
+              </div>
+              
             )}
           </div>
         </div>
