@@ -22,20 +22,16 @@ export class Favorites extends Component {
     const { favoritesList } = this.state;
     const allFavorites = favoritesList.map((element, i) => {
       return (
-        <div className='favorites-section'>
-          <h1 className='favorites-title'>Favorites</h1>
-          <div className="active"></div>
-          <TopicCard
-            title={element.title}
-            creator={element.creator}
-            description={element.message}
-            comments={element.comments}
-            upvote={element.upVote}
-            date={element.created_at} // not working
-            id={element._id}
-            key={i}
-          />
-        </div>
+        <TopicCard
+          title={element.title}
+          creator={element.creator}
+          description={element.message}
+          comments={element.comments}
+          upvote={element.upVote}
+          date={element.created_at} // not working
+          id={element._id}
+          key={i}
+        />
       );
     });
 
@@ -43,7 +39,9 @@ export class Favorites extends Component {
       <div className="testcards">
         <Navbar />
         <div className="big-topic-container">
-          <div>
+          <div className="favorites-section">
+            <h1 className="favorites-title">Favorites</h1>
+            <div className="active"></div>
             {favoritesList ? (
               <div className="last-favorites-added">{allFavorites}</div>
             ) : (
